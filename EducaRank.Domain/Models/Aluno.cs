@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EducaRank.Domain.Models
+﻿namespace EducaRank.Domain.Models
 {
-    internal class Aluno
+    public class Aluno
     {
+        public int Id { get; set; }
+        public int Rm { get; set; }
+        public string Nome { get; set; } = string.Empty;
+        public string Curso { get; set; } = string.Empty;
+        public string Sala { get; set; } = string.Empty;
+        public string Etec { get; set; } = string.Empty;
+        public int Idade { get; set; }
+        public string SenhaHash { get; set; } = string.Empty;
+        public int Pontuacao { get; set; }
+        public int NrAvaliacoes { get; set; }
+        public string Foto { get; set; } = string.Empty;
     }
 }
