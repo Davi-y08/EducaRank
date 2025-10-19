@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EducaRank.Domain.Models;
 
 namespace EducaRank.Domain.Interfaces
 {
-    internal interface IAvaliacoesService
+    public interface IAvaliacoesService
     {
+        Task<List<Avaliacao>> GetAvaliacoes();
+        Task<Avaliacao> GetAvaliacaoById(int id);
+        Task<Avaliacao> CreateAvaliacao(Avaliacao avaliacao_model);
+        Task<List<Avaliacao>> GetAvaliacoesByAluno(int rm);
+        Task<List<Avaliacao>> GetAvaliacoesByProfessor(int rm);
+        Task<bool> DeleteAvaliacao(int id);
     }
 }

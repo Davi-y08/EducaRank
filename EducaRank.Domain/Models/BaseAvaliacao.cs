@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EducaRank.Domain.Models
+﻿namespace EducaRank.Domain.Models
 {
-    internal class BaseAvaliacao
+    public class BaseAvaliacao
     {
+        public int Id { get; set; }
+        public string? DescBase{ get; set; }
     }
 }

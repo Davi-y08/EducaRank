@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EducaRank.Domain.Models;
 
 namespace EducaRank.Domain.Interfaces
 {
-    internal interface IEscolaIntegrationService
+    public interface IEscolaIntegrationService
     {
+        Task<Aluno?> GetAlunoFromEscolaByRM(int RM);
+        Task<List<Aluno>> GetAlunosFromEscola(); // Listar alunos da banco de dados da escola
     }
 }
