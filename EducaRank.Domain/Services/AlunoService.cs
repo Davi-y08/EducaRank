@@ -1,5 +1,6 @@
 ﻿using EducaRank.Domain.Interfaces;
 using EducaRank.Domain.Models;
+using System.Runtime.CompilerServices;
 
 namespace EducaRank.Domain.Services
 {
@@ -35,9 +36,50 @@ namespace EducaRank.Domain.Services
             return await _alunoService.CreateAluno(new_aluno);
         }
 
-        public async Task<Aluno> GetAlunoById()
+        public async Task<Aluno> GetAlunoById(int id_aluno)
         {
-
+            return await _alunoService.GetAlunoById(id_aluno);
         }
+
+        public async Task<Aluno> ChangePfp(string pfp)
+        {
+            return await _alunoService.ChangePfp(pfp);
+        }
+
+        public async Task<Aluno> GetPontuacao(int id_aluno)
+        {
+            return await _alunoService.GetPontuacao(id_aluno);
+        }
+
+        public async Task<Aluno> GetNrAvaliacoes(int id_aluno)
+        {
+            return await _alunoService.GetNrAvaliacoes(id_aluno);
+        }
+
+        public async Task<bool> DeleteAlunoFromEducaRank(int id_aluno)
+        {
+            return await _alunoService.DeleteAlunoFromEducaRank(id_aluno);
+        }
+
+        public async Task<List<Avaliacao>> GetAvaliacoes(int id_aluno)
+        {
+            return await _alunoService.GetAvaliacoes(id_aluno);
+        }
+
+        public async Task<List<Aluno>> SearchAlunos(string query)
+        {
+            return await _alunoService.SearchAlunos(query);
+        }
+
+        public async Task<Aluno> ChangeEmail(string new_email)
+        {
+            return await _alunoService.ChangeEmail(new_email);
+        }
+
+        public async Task<Aluno> ChangePass(string old_pass, string new_pass)
+        {
+            return await _alunoService.ChangePassword(old_pass, new_pass);
+        }
+
     }
 }
