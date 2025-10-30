@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EducaRank.Domain.Services
+namespace EducaRank.Domain.Exceptions
 {
-    internal class BaseAvaliacao
+    internal class BaseAvaliacaoException
     {
     }
 }

@@ -1,24 +1,26 @@
 ﻿using EducaRank.Domain.Interfaces;
 using EducaRank.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace EducaRank.Domain.Services
+namespace EducaRank.Domain.Exceptions
 {
-    public class ProfessorService
+    public class ProfessorException
     {
         private readonly IProfessorService _professorService;
 
-        public ProfessorService(IProfessorService professorService)
+        public ProfessorException(IProfessorService professorService)
         {
             _professorService = professorService;
         }
 
-        public async Task<List<Professor>> GetProfessores()
-        {
-            return await _professorService.GetProfessores();
-        }
-
         public async Task<Professor> CreateProfessor(Professor professor_model)
         {
+            if (string.IsNullOrWhiteSpace(professor_model.Nome))
+                throw new ValidationException("Nome do professor é obrigatório.");
+
+            if (string.IsNullOrWhiteSpace(professor_model.Foto))
+                professor_model.Foto = "path/fotopadrao.png";
+
             var new_professor = new Professor
             {
                 Id = professor_model.Id,
@@ -37,31 +39,6 @@ namespace EducaRank.Domain.Services
         public async Task<Professor> GetProfessorById(int id_professor)
         {
             return await _professorService.GetProfessorById(id_professor);
-        }
-
-        public async Task<Professor> ChangePfp(string pfp)
-        {
-            return await _professorService.ChangePfp(pfp);
-        }
-
-        public async Task<Professor> GetNrAvaliacoes(int id_professor)
-        {
-            return await _professorService.GetNrAvaliacoes(id_professor);
-        }
-
-        public async Task<bool> DeleteProfessorFromEducaRank(int id_professor)
-        {
-            return await _professorService.DeleteProfessorFromEducaRank(id_professor);
-        }
-
-        public async Task<List<Avaliacao>> GetAvaliacoesFeitas(int id_professor)
-        {
-            return await _professorService.GetAvaliacoesFeitas(id_professor);
-        }
-
-        public async Task<List<Professor>> SearchProfessores(string query)
-        {
-            return await _professorService.SearchProfessores(query);
         }
 
         public async Task<Professor> ChangeEmail(string new_email)

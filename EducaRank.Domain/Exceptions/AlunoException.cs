@@ -1,14 +1,15 @@
 ﻿using EducaRank.Domain.Interfaces;
 using EducaRank.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace EducaRank.Domain.Services
+namespace EducaRank.Domain.Exceptions
 {
-    public class AlunoService
+    public class AlunoException
     {
         private readonly IAlunoService _alunoService;
 
-        public AlunoService(IAlunoService alunoService)
+        public AlunoException(IAlunoService alunoService)
         {
             _alunoService = alunoService;
         }
@@ -20,6 +21,16 @@ namespace EducaRank.Domain.Services
 
         public async Task<Aluno> CreateAluno(Aluno aluno_model)
         {
+            if (string.IsNullOrWhiteSpace(aluno_model.Nome))
+                throw new ValidationException("Nome do aluno é obrigatório.");
+
+            if (aluno_model.Idade <= 0)
+                throw new ValidationException("Idade inválida.");
+
+            if (string.IsNullOrWhiteSpace(aluno_model.Foto))
+                aluno_model.Foto = "path/fotopadrao.png";
+
+
             var new_aluno = new Aluno();
             new_aluno.Curso = aluno_model.Curso;
             new_aluno.Etec = aluno_model.Etec;
@@ -36,49 +47,20 @@ namespace EducaRank.Domain.Services
             return await _alunoService.CreateAluno(new_aluno);
         }
 
-        public async Task<Aluno> GetAlunoById(int id_aluno)
-        {
-            return await _alunoService.GetAlunoById(id_aluno);
-        }
-
         public async Task<Aluno> ChangePfp(string pfp)
         {
+            if (string.IsNullOrWhiteSpace(pfp))
+                throw new ValidationException("A foto de perfil deve existir");
+
             return await _alunoService.ChangePfp(pfp);
-        }
-
-        public async Task<Aluno> GetPontuacao(int id_aluno)
-        {
-            return await _alunoService.GetPontuacao(id_aluno);
-        }
-
-        public async Task<Aluno> GetNrAvaliacoes(int id_aluno)
-        {
-            return await _alunoService.GetNrAvaliacoes(id_aluno);
-        }
-
-        public async Task<bool> DeleteAlunoFromEducaRank(int id_aluno)
-        {
-            return await _alunoService.DeleteAlunoFromEducaRank(id_aluno);
-        }
-
-        public async Task<List<Avaliacao>> GetAvaliacoes(int id_aluno)
-        {
-            return await _alunoService.GetAvaliacoes(id_aluno);
-        }
-
-        public async Task<List<Aluno>> SearchAlunos(string query)
-        {
-            return await _alunoService.SearchAlunos(query);
         }
 
         public async Task<Aluno> ChangeEmail(string new_email)
         {
-            return await _alunoService.ChangeEmail(new_email);
-        }
+            if (string.IsNullOrWhiteSpace(new_email))
+                throw new ValidationException("O email é obrigatório!");
 
-        public async Task<Aluno> ChangePass(string old_pass, string new_pass)
-        {
-            return await _alunoService.ChangePassword(old_pass, new_pass);
+            return await _alunoService.ChangeEmail(new_email);
         }
 
     }
