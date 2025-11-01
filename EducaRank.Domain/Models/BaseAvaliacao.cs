@@ -2,7 +2,7 @@
 {
     public class BaseAvaliacao
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         public string? DescBase{ get; set; }
     }
 }

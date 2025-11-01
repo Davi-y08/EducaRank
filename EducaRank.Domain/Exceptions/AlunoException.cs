@@ -14,11 +14,6 @@ namespace EducaRank.Domain.Exceptions
             _alunoService = alunoService;
         }
 
-        public async Task<List<Aluno>> GetAlunos()
-        {
-            return await _alunoService.GetAlunos();
-        }
-
         public async Task<Aluno> CreateAluno(Aluno aluno_model)
         {
             if (string.IsNullOrWhiteSpace(aluno_model.Nome))
@@ -46,22 +41,7 @@ namespace EducaRank.Domain.Exceptions
 
             return await _alunoService.CreateAluno(new_aluno);
         }
-
-        public async Task<Aluno> ChangePfp(string pfp)
-        {
-            if (string.IsNullOrWhiteSpace(pfp))
-                throw new ValidationException("A foto de perfil deve existir");
-
-            return await _alunoService.ChangePfp(pfp);
-        }
-
-        public async Task<Aluno> ChangeEmail(string new_email)
-        {
-            if (string.IsNullOrWhiteSpace(new_email))
-                throw new ValidationException("O email é obrigatório!");
-
-            return await _alunoService.ChangeEmail(new_email);
-        }
-
+        
+         
     }
 }

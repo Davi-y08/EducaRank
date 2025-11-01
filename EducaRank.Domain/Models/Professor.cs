@@ -2,7 +2,7 @@
 {
     public class Professor
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = string.Empty;
         public int Rm { get; set; }
         public string Nome { get; set; } = string.Empty;
         public List<string> Materias { get; set; } = new();
