@@ -4,11 +4,11 @@ namespace EducaRank.Domain.Interfaces
 {
     public interface IAvaliacoesService
     {
-        Task<List<Avaliacao>> GetAvaliacoes();
-        Task<Avaliacao> GetAvaliacaoById(string avaliacao_id);
-        Task<Avaliacao> CreateAvaliacao(Avaliacao avaliacao_model);
-        Task<List<Avaliacao>> GetAvaliacoesByAluno(int rm);
-        Task<List<Avaliacao>> GetAvaliacoesByProfessor(int rm);
+        Task<IEnumerable<Avaliacao>> GetAvaliacoes();
+        Task<Avaliacao> GetById(string id);
+        Task<Avaliacao> Create(Avaliacao avaliacao_model);
+        Task<IEnumerable<Avaliacao>> GetAvaliacoesByAluno(string aluno_id);
+        Task<List<Avaliacao>> GetAvaliacoesByProfessor(string aluno_id);
         Task<bool> DeleteAvaliacao(string avaliacao_id);
     }
 }

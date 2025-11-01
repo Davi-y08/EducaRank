@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EducaRank.Domain.Exceptions
+namespace EducaRank.Domain.Models
 {
-    internal class BaseAvaliacaoException
+    internal class ProfessorCredencial
     {
     }
 }

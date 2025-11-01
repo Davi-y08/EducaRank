@@ -4,14 +4,13 @@ namespace EducaRank.Domain.Interfaces
 {
     public interface IAlunoService
     {
-        Task<List<Aluno>> GetAlunos(); // listar alunos do banco de dados do educa rank
-        Task<Aluno> GetAlunoById(string aluno_id);
-        Task<Aluno> EdiAluno(Aluno aluno_model, string aluno_id)
-        Task<Aluno> CreateAluno(Aluno aluno_model);
+        Task<IEnumerable<Aluno>> GetAll();
+        Task<Aluno?> GeById(string id);
         Task<Aluno> GetPontuacao(string aluno_id);
-        Task<Aluno> GetNrAvaliacoes(string aluno_id);
+
+        Task<Aluno> Update(Aluno aluno_model, string aluno_id);
+        Task<Aluno> Create(Aluno aluno_model);
         Task<bool> DeleteAlunoFromEducaRank(string aluno_id);
-        Task<List<Avaliacao>> GetAvaliacoes(string aluno_id);
         Task<List<Aluno>> SearchAlunos(string query_str);
     }
 }
