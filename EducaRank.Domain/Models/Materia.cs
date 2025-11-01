@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EducaRank.Domain.Models
+﻿namespace EducaRank.Domain.Models
 {
-    internal class Materia
+    public class Materia
     {
+        public int Id { get; private set; }
+        public string Nome { get; private set; } = string.Empty;
+
+        private Materia() { }
+
+        public Materia(int id, string nome)
+        {
+            Id = id;
+            Nome = nome;
+        }
     }
 }

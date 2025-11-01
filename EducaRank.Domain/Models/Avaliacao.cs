@@ -2,21 +2,31 @@
 {
     public class Avaliacao
     {
-        public string Id { get; set; } = string.Empty;
+        public string Id { get; private set; } = Guid.NewGuid().ToString();
 
-        //
-        public Professor Professor { get; set; } = null!;
-        public int RmProfessor { get; set; }
-        //
+        public Professor? Professor { get; private set; }
+        public string ProfessorId { get; private set; } = string.Empty;
 
-        //
-        public Aluno Aluno { get; set; } = null!;
-        public int Rm_aluno { get; set; }
-        //
+        public Aluno? Aluno { get; private set; }
+        public string AlunoId { get; private set; } = string.Empty;
 
-        public int Pontuacao_alterada { get; set; }
-        public List<BaseAvaliacao> Bases { get; set; } = new();
-        public string? Comentario { get; set; }
-        public DateTime Data { get; set; } = DateTime.UtcNow;
+        public int PontuacaoAlterada { get; private set; }
+        public string? Comentario { get; private set; } = string.Empty;
+        public DateTime Data { get; private set; }
+
+        private Avaliacao() { }
+
+        public Avaliacao(Professor professor, Aluno aluno, int pontuacaoAlterada, string? comentario = null)
+        {
+            Professor = professor ?? throw new ArgumentNullException(nameof(professor));
+            ProfessorId = professor.Id;
+
+            Aluno = aluno ?? throw new ArgumentNullException(nameof(aluno));
+            AlunoId = aluno.Id;
+
+            PontuacaoAlterada = pontuacaoAlterada;
+            Comentario = comentario;
+            Data = DateTime.UtcNow;
+        }
     }
 }

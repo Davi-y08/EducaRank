@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EducaRank.Domain.Models
+﻿namespace EducaRank.Domain.Models
 {
-    internal class ProfessorCredencial
+    public class ProfessorCredencial
     {
+        public string ProfessorId { get; private set; } = string.Empty;
+        public string SenhaHash { get; private set; } = string.Empty;
+
+        private ProfessorCredencial() { }
+
+        public ProfessorCredencial(string professorId, string senhaHash)
+        {
+            ProfessorId = professorId;
+            SenhaHash = senhaHash;
+        }
     }
 }
