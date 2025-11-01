@@ -11,6 +11,6 @@ namespace EducaRank.Domain.Interfaces
         Task<Aluno> Update(Aluno aluno_model, string aluno_id);
         Task<Aluno> Create(Aluno aluno_model);
         Task<bool> DeleteAlunoFromEducaRank(string aluno_id);
-        Task<List<Aluno>> SearchAlunos(string query_str);
+        Task<IEnumerable<Aluno>> SearchAlunos(string query_str);
     }
 }

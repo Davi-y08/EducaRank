@@ -14,4 +14,10 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EducaRank.Application\EducaRank.Application.csproj" />
+    <ProjectReference Include="..\EducaRank.Domain\EducaRank.Domain.csproj" />
+    <ProjectReference Include="..\EducaRank.Infrastructure\EducaRank.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
