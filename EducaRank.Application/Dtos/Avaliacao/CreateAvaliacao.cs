@@ -5,6 +5,6 @@
         public int PontuacaoAlterada { get; set; }
         public string AlunoId { get; set; } = string.Empty;
         public string ProfessorId { get; set; } = string.Empty;
-        public DateTime MyProperty { get; set; }
+        public DateTime Data { get; set; }
     }
 }

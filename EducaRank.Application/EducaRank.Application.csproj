@@ -10,8 +10,4 @@
     <ProjectReference Include="..\EducaRank.Domain\EducaRank.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Professor\" />
-  </ItemGroup>
-
 </Project>
