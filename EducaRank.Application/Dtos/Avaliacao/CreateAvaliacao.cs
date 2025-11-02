@@ -1,0 +1,10 @@
+﻿namespace EducaRank.Application.Dtos.Avaliacao
+{
+    public  class CreateAvaliacao
+    {
+        public int PontuacaoAlterada { get; set; }
+        public string AlunoId { get; set; } = string.Empty;
+        public string ProfessorId { get; set; } = string.Empty;
+        public DateTime MyProperty { get; set; }
+    }
+}
