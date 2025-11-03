@@ -57,5 +57,13 @@ namespace EducaRank.Domain.Models
                 AtribuirCredencial(credencialAtualizada);
             }
         }
+
+        public void DefinirFoto(string caminho_foto)
+        {
+            if (string.IsNullOrWhiteSpace(caminho_foto))
+                throw new DomainException("Caminho de foto inválido");
+
+            Foto = caminho_foto;
+        }
     }
 }

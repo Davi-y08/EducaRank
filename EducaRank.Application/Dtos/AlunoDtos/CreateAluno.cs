@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace EducaRank.Application.Dtos.AlunoDtos
 {
@@ -31,5 +32,7 @@ namespace EducaRank.Application.Dtos.AlunoDtos
         [Required(ErrorMessage = "Confirmar senha é obrigatório")]
         [Compare("Senha", ErrorMessage = "Senhas não coincidem")]
         public string ConfirmarSenha { get; set; } = string.Empty;
+
+        public IFormFile? Foto { get; set; }
     }
 }

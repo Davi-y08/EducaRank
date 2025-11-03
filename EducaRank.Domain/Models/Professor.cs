@@ -14,14 +14,14 @@
 
         private Professor() { }
 
-        public Professor(string id, int rm, string nome, List<Materia> materias, List<Sala> salas, string foto, int avaliacoesFeitas)
+        public Professor(string id, int rm, string nome, List<Materia> materias, List<Sala> salas, int avaliacoesFeitas, ProfessorCredencial credencial)
         {
             Rm = rm;
             Nome = nome;
             Materias = materias;
             Salas = salas;
-            Foto = foto;
             AvaliacoesFeitas = avaliacoesFeitas;
+            Credencial = credencial;
         }
 
         public void AtribuirCredencial(ProfessorCredencial credencial)
@@ -29,9 +29,12 @@
             Credencial = credencial;
         }
 
-        public void AdicionarMateria(Materia materia)
+        public static Professor Criar(int rm, string nome, List<Materia> materias, List<Sala> salas, int avaliacoes_feitas, string senha)
         {
-
+            var professor = new Professor(rm, nome, materias, salas, avaliacoes_feitas, null!);
+            var credencial = ProfessorCredencial.Criar(professor.Id, senha);
+            professor.AtribuirCredencial(credencial);
+            return professor;
         }
     }
 }
