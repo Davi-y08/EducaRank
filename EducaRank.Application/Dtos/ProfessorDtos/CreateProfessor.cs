@@ -1,4 +1,5 @@
 ﻿using EducaRank.Domain.Models;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace EducaRank.Application.Dtos.ProfessorDtos
@@ -16,7 +17,6 @@ namespace EducaRank.Application.Dtos.ProfessorDtos
         [Required]
         public List<Sala> Salas { get; set; } = new List<Sala>();
 
-        public string Foto { get; set; } = string.Empty;
         public int AvaliacoesFeitas { get; set; } = 0;
 
         [Required(ErrorMessage = "Senha é obrigatória")]
@@ -26,5 +26,7 @@ namespace EducaRank.Application.Dtos.ProfessorDtos
         [Required(ErrorMessage = "Confirmar senha é obrigatório")]
         [Compare("Senha", ErrorMessage = "Senhas não coincidem")]
         public string ConfirmarSenha { get; set; } = string.Empty;
+        
+        public IFormFile? Foto { get; set; }
     }
 }

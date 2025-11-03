@@ -1,4 +1,6 @@
-﻿namespace EducaRank.Domain.Models
+﻿using EducaRank.Domain.Exceptions;
+
+namespace EducaRank.Domain.Models
 {
     public class Professor
     {
@@ -35,6 +37,26 @@
             var credencial = ProfessorCredencial.Criar(professor.Id, senha);
             professor.AtribuirCredencial(credencial);
             return professor;
+        }
+
+        public void Atualizar(string nome, string? senha = null)
+        {
+            if (!string.IsNullOrWhiteSpace(nome))
+                Nome = nome;
+
+            if (!string.IsNullOrWhiteSpace(senha))
+            {
+                var credencialAtualizada = ProfessorCredencial.Criar(Id, senha);
+                AtribuirCredencial(credencialAtualizada);
+            }
+        }
+
+        public void DefinirFoto(string caminho_foto)
+        {
+            if (string.IsNullOrWhiteSpace(caminho_foto))
+                throw new DomainException("Caminho de foto inválido");
+
+            Foto = caminho_foto;
         }
     }
 }
