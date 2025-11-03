@@ -45,5 +45,17 @@ namespace EducaRank.Domain.Models
             aluno.AtribuirCredencial(credencial);
             return aluno;
         }
+
+        public void Atualizar(string nome, string? senha = null)
+        {
+            if (!string.IsNullOrWhiteSpace(nome))
+                Nome = nome;
+
+            if (!string.IsNullOrWhiteSpace(senha))
+            {
+                var credencialAtualizada = AlunoCredencial.Criar(Id, senha);
+                AtribuirCredencial(credencialAtualizada);
+            }
+        }
     }
 }

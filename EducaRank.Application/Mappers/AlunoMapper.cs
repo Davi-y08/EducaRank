@@ -34,5 +34,10 @@ namespace EducaRank.Application.Mappers
                 NrAvaliacoes = aluno.NrAvaliacoes
             };
         }
+
+        public static void ToUpdateAluno(this Aluno aluno, UpdateAluno dto)
+        {
+            aluno.Atualizar(dto.Nome, dto.Senha);
+        }
     }
 }
