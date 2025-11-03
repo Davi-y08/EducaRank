@@ -1,0 +1,38 @@
+﻿using EducaRank.Application.Dtos.AlunoDtos;
+using EducaRank.Domain.Models;
+
+namespace EducaRank.Application.Mappers
+{
+    public static class AlunoMapper
+    {
+        public static Aluno ToCreateAluno(this CreateAluno dto)
+        {
+            return Aluno.Criar(
+               dto.Rm,
+               dto.Nome,
+               dto.Curso,
+               dto.Sala,
+               dto.Etec,
+               dto.Idade,
+               dto.Senha
+           );
+        }
+
+        public static ReadAluno ToReadAluno(this Aluno aluno)
+        {
+            return new ReadAluno
+            {
+                Id = aluno.Id,
+                Rm = aluno.Rm,
+                Nome = aluno.Nome,
+                Curso = aluno.Curso,
+                Sala = aluno.Sala,
+                Etec = aluno.Etec,
+                Idade = aluno.Idade,
+                Foto = aluno.Foto,
+                Pontuacao = aluno.Pontuacao,
+                NrAvaliacoes = aluno.NrAvaliacoes
+            };
+        }
+    }
+}

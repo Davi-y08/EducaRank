@@ -1,7 +1,7 @@
 ﻿using EducaRank.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace EducaRank.Application.Dtos.Professor
+namespace EducaRank.Application.Dtos.ProfessorDtos
 {
     public class CreateProfessor
     {

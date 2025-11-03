@@ -1,4 +1,4 @@
-﻿namespace EducaRank.Application.Dtos.Aluno
+﻿namespace EducaRank.Application.Dtos.AlunoDtos
 {
     public class ReadPontuacaoAluno
     {

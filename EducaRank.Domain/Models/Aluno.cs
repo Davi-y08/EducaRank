@@ -1,4 +1,6 @@
-﻿namespace EducaRank.Domain.Models
+﻿using EducaRank.Domain.Exceptions;
+
+namespace EducaRank.Domain.Models
 {
     public class Aluno
     {
@@ -18,7 +20,7 @@
 
         private Aluno() { }
 
-        public Aluno(int rm, string nome, string curso, string sala, string etec, int idade)
+        public Aluno(int rm, string nome, string curso, string sala, string etec, int idade, AlunoCredencial credencial)
         {
             Rm = rm;
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));
@@ -28,11 +30,20 @@
             Idade = idade;
             Pontuacao = 0;
             NrAvaliacoes = 0;
+            Credencial = credencial;
         }
 
         public void AtribuirCredencial(AlunoCredencial credencial)
         {
             Credencial = credencial;
+        }
+
+        public static Aluno Criar(int rm, string nome, string curso, string sala, string etec, int idade, string senha)
+        {
+            var aluno = new Aluno(rm, nome, curso, sala, etec, idade, null!);
+            var credencial = AlunoCredencial.Criar(aluno.Id, senha);
+            aluno.AtribuirCredencial(credencial);
+            return aluno;
         }
     }
 }
