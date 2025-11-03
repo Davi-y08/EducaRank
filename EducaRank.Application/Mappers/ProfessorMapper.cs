@@ -22,6 +22,22 @@ namespace EducaRank.Application.Mappers
             return professor;
         }
 
+        public static ReadProfessor ToReadProfessor(this Professor professor)
+        {
+            return new ReadProfessor
+            {
+                Id = professor.Id,
+                Nome = professor.Nome,
+                Materias = professor.Materias,
+                Salas = professor.Salas,
+                Foto = professor.Foto,
+                AvaliacoesFeitas = professor.AvaliacoesFeitas
+            };
+        }
 
+        public static void ToUpdateProfessor(this Professor professor, UpdateProfessor dto)
+        {
+            professor.Atualizar(dto.Nome, dto.Senha);
+        }
     }
 }
