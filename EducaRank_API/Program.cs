@@ -15,6 +15,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<LegadoEscolaDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("LegadoConnection")));
+
 builder.Services.AddScoped<IAlunoService, AlunoRepo>();
 builder.Services.AddScoped<IProfessorService, ProfessorRepo>();
 builder.Services.AddScoped<IAvaliacoesService, AvaliacaoRepo>();
