@@ -10,7 +10,6 @@ namespace EducaRank.Application.Mappers
             var professor = Professor.Criar(
                 dto.Rm,
                 dto.Nome,
-                dto.Materias,
                 dto.Salas,
                 dto.AvaliacoesFeitas,
                 dto.Senha
@@ -28,7 +27,6 @@ namespace EducaRank.Application.Mappers
             {
                 Id = professor.Id,
                 Nome = professor.Nome,
-                Materias = professor.Materias,
                 Salas = professor.Salas,
                 Foto = professor.Foto,
                 AvaliacoesFeitas = professor.AvaliacoesFeitas

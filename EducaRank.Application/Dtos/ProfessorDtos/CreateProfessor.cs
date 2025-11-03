@@ -13,8 +13,6 @@ namespace EducaRank.Application.Dtos.ProfessorDtos
         public string Nome { get; set; } = string.Empty;
 
         [Required]
-        public List<Materia> Materias { get; set; } = new List<Materia>();
-        [Required]
         public List<Sala> Salas { get; set; } = new List<Sala>();
 
         public int AvaliacoesFeitas { get; set; } = 0;
