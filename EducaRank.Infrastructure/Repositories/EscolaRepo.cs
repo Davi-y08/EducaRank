@@ -1,6 +1,8 @@
-﻿namespace EducaRank.Infrastructure.Repositories
+﻿using EducaRank.Domain.Interfaces;
+
+namespace EducaRank.Infrastructure.Repositories
 {
-    public class EscolaRepo
+    public class EscolaRepo : IEscolaIntegrationService
     {
 
     }
