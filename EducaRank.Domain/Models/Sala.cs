@@ -4,6 +4,7 @@
     {
         public int Id { get; private set; }
         public string NomeSala { get; private set; } = string.Empty;
+        public List<Aluno> Alunos { get; private set; } = new();
 
         private Sala() { }
 

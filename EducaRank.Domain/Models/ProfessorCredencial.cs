@@ -8,13 +8,15 @@ namespace EducaRank.Domain.Models
     {
         public string ProfessorId { get; private set; } = string.Empty;
         public string SenhaHash { get; private set; } = string.Empty;
+        public string Salt { get; private set; }
 
         private ProfessorCredencial() { }
 
-        private ProfessorCredencial(string professorId, string senhaHash)
+        private ProfessorCredencial(string professorId, string senhaHash, string salt)
         {
             ProfessorId = professorId;
             SenhaHash = senhaHash;
+            Salt = salt;
         }
 
         public static ProfessorCredencial Criar(string professor_id, string senha)
@@ -22,20 +24,28 @@ namespace EducaRank.Domain.Models
             if (string.IsNullOrWhiteSpace(senha))
                 throw new DomainException("A senha é obrigatória.");
 
-            var senhaHash = GerarHash(senha);
-            return new ProfessorCredencial(professor_id, senhaHash);
+            var saltBytes = RandomNumberGenerator.GetBytes(16);
+            var salt = Convert.ToBase64String(saltBytes);
+
+            var senhaHash = GerarHash(senha, salt);
+
+            return new ProfessorCredencial(professor_id, senhaHash, salt);
         }
 
-        private static string GerarHash(string senha)
+        private static string GerarHash(string senha, string salt)
         {
-            using var sha256 = SHA256.Create();
-            var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(senha));
-            return Convert.ToBase64String(bytes);
+            using var deriveBytes = new Rfc2898DeriveBytes(
+               senha,
+               Convert.FromBase64String(salt),
+               10000,
+               HashAlgorithmName.SHA256
+           );
+            return Convert.ToBase64String(deriveBytes.GetBytes(32));
         }
 
         public bool VerificarSenha(string senha)
         {
-            var hashTentativa = GerarHash(senha);
+            var hashTentativa = GerarHash(senha, Salt);
             return SenhaHash == hashTentativa;
         }
     }

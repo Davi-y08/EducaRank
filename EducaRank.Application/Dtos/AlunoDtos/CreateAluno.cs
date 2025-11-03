@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using EducaRank.Domain.Models;
 using Microsoft.AspNetCore.Http;
 
 namespace EducaRank.Application.Dtos.AlunoDtos
@@ -16,7 +17,7 @@ namespace EducaRank.Application.Dtos.AlunoDtos
         public string Curso { get; set; } = string.Empty;
 
         [Required]
-        public string Sala { get; set; } = string.Empty;
+        public Sala? Sala { get; set; }
 
         [Required]
         public string Etec { get; set; } = string.Empty;

@@ -8,7 +8,8 @@ namespace EducaRank.Domain.Models
         public int Rm { get; private set; }
         public string Nome { get; private set; } = string.Empty;
         public string Curso { get; private set; } = string.Empty;
-        public string Sala { get; private set; } = string.Empty;
+        public Sala? Sala { get; private set; }
+        public int SalaId { get; private set; }
         public string Etec { get; private set; } = string.Empty;
         public int Idade { get; private set; } 
         public string Foto { get; private set; } = string.Empty;
@@ -20,12 +21,13 @@ namespace EducaRank.Domain.Models
 
         private Aluno() { }
 
-        public Aluno(int rm, string nome, string curso, string sala, string etec, int idade, AlunoCredencial credencial)
+        public Aluno(int rm, string nome, string curso, Sala sala, string etec, int idade, AlunoCredencial credencial)
         {
             Rm = rm;
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));
             Curso = curso ?? throw new ArgumentNullException(nameof(curso));
-            Sala = sala ?? throw new ArgumentNullException(nameof(sala));
+            SalaId = sala.Id;
+            Sala = sala;
             Etec = etec ?? throw new ArgumentNullException(nameof(etec));
             Idade = idade;
             Pontuacao = 0;
@@ -38,7 +40,7 @@ namespace EducaRank.Domain.Models
             Credencial = credencial;
         }
 
-        public static Aluno Criar(int rm, string nome, string curso, string sala, string etec, int idade, string senha)
+        public static Aluno Criar(int rm, string nome, string curso, Sala sala, string etec, int idade, string senha)
         {
             var aluno = new Aluno(rm, nome, curso, sala, etec, idade, null!);
             var credencial = AlunoCredencial.Criar(aluno.Id, senha);
