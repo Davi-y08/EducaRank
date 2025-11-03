@@ -18,15 +18,67 @@ namespace EducaRank.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Aluno>()
-            .HasOne(p => p.Sala)
-            .WithMany(p => p.Alunos)
-            .HasForeignKey(a => a.SalaId)
-            .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Aluno>(entity =>
+            {
+                entity.HasKey(a => a.Id);
 
-            modelBuilder.Entity<Professor>()
-            .HasMany(p => p.Salas)
-            .WithMany();
+                entity.HasOne(a => a.Credencial)
+                .WithOne()
+                .HasForeignKey<AlunoCredencial>(c => c.AlunoId)
+                .IsRequired();
+
+                entity.HasOne(a => a.Sala)
+                .WithMany(s => s.Alunos)
+                .HasForeignKey(a => a.SalaId);
+            });
+
+            modelBuilder.Entity<AlunoCredencial>(entity =>
+            {
+                entity.HasKey(c => c.AlunoId);
+                entity.Property(c => c.SenhaHash).IsRequired();
+                entity.Property(c => c.Salt).IsRequired();
+            });
+
+            modelBuilder.Entity<Professor>(entity =>
+            {
+                entity.HasKey(p => p.Id);
+
+                entity.HasOne(p => p.Credencial)
+                      .WithOne()
+                      .HasForeignKey<ProfessorCredencial>(c => c.ProfessorId)
+                      .IsRequired();
+            });
+
+            modelBuilder.Entity<ProfessorCredencial>(entity =>
+            {
+                entity.HasKey(c => c.ProfessorId);
+                entity.Property(c => c.SenhaHash).IsRequired();
+                entity.Property(c => c.Salt).IsRequired();
+            });
+
+            modelBuilder.Entity<Sala>(entity =>
+            {
+                entity.HasKey(s => s.Id);
+                entity.Property(s => s.NomeSala).HasMaxLength(50);
+                entity.HasMany(s => s.Alunos)
+                      .WithOne(a => a.Sala)
+                      .HasForeignKey(a => a.SalaId);
+            });
+
+            modelBuilder.Entity<Avaliacao>(entity =>
+            {
+                entity.HasKey(a => a.Id);
+
+                entity.HasOne(a => a.Professor)
+                .WithMany(p => p.Avaliacoes)
+                .HasForeignKey(p => p.ProfessorId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(a => a.Aluno)
+                .WithMany(p => p.Avaliacoes)
+                .HasForeignKey(p => p.AlunoId)
+                .OnDelete(DeleteBehavior.Cascade);
+            });
         }
 
     }

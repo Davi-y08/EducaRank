@@ -16,6 +16,7 @@ namespace EducaRank.Domain.Models
 
         public int Pontuacao { get; private set; }
         public int NrAvaliacoes { get; private set; }
+        public List<Avaliacao> Avaliacoes { get; private set; } = new();
 
         public AlunoCredencial? Credencial { get; private set; }
 

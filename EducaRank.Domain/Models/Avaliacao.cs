@@ -28,5 +28,10 @@
             Comentario = comentario;
             Data = DateTime.UtcNow;
         }
+
+        public static Avaliacao Criar(Professor professor, Aluno aluno, int pontuacao, string? comentario = null)
+        {
+            return new Avaliacao(professor, aluno, pontuacao, comentario);
+        }
     }
 }

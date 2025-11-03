@@ -15,8 +15,6 @@ namespace EducaRank.Application.Dtos.ProfessorDtos
         [Required]
         public List<Sala> Salas { get; set; } = new List<Sala>();
 
-        public int AvaliacoesFeitas { get; set; } = 0;
-
         [Required(ErrorMessage = "Senha é obrigatória")]
         [MinLength(6, ErrorMessage = "A senha deve ter no mínimo 6 digitos")]
         public string Senha { get; set; } = string.Empty;
@@ -24,6 +22,7 @@ namespace EducaRank.Application.Dtos.ProfessorDtos
         [Required(ErrorMessage = "Confirmar senha é obrigatório")]
         [Compare("Senha", ErrorMessage = "Senhas não coincidem")]
         public string ConfirmarSenha { get; set; } = string.Empty;
+
         
         public IFormFile? Foto { get; set; }
     }
