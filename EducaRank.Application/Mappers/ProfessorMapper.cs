@@ -11,7 +11,6 @@ namespace EducaRank.Application.Mappers
                 dto.Rm,
                 dto.Nome,
                 dto.Salas,
-                dto.AvaliacoesFeitas,
                 dto.Senha
                 );
 
