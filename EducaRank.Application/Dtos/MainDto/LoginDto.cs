@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EducaRank.Application.Dtos.AlunoDtos
+namespace EducaRank.Application.Dtos.MainDto
 {
-    public class LoginAluno
+    public class LoginDto
     {
         [Required(ErrorMessage = "O rm é necessário para fazer login")]
         public int Rm { get; set; }

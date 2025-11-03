@@ -14,7 +14,7 @@
 
         private Professor() { }
 
-        public Professor(string id, int rm, string nome, List<Materia> materias, List<Sala> salas, int avaliacoesFeitas, ProfessorCredencial credencial)
+        public Professor(int rm, string nome, List<Materia> materias, List<Sala> salas, int avaliacoesFeitas, ProfessorCredencial credencial)
         {
             Rm = rm;
             Nome = nome;
