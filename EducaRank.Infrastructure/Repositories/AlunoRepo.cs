@@ -1,4 +1,4 @@
-﻿using EducaRank.Domain.Interfaces;
+﻿    using EducaRank.Domain.Interfaces;
 using EducaRank.Domain.Models;
 using EducaRank.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +37,7 @@ namespace EducaRank.Infrastructure.Repositories
                 _appDbContext.Salas.Add(sala);
                 await _appDbContext.SaveChangesAsync();
             }
-
+                
             var idade = DateTime.Now.Year - aluno_legado.DataNascimento.Year;
             if (DateTime.Now.DayOfYear < aluno_legado.DataNascimento.DayOfYear)
                 idade--;

@@ -36,7 +36,7 @@ namespace EducaRank_API.Controllers
                     var readAluno = aluno.ToReadAluno();
 
                     return CreatedAtAction(
-                        actionName: "GetById",
+                        actionName: nameof(AlunoController.GetAluno),
                         controllerName: "Aluno",
                         routeValues: new { id = aluno.Id },
                         value: new

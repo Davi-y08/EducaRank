@@ -10,15 +10,17 @@ namespace EducaRank.Domain.Models
         public string Foto { get; private set; } = string.Empty;
         public int AvaliacoesFeitas { get; private set; }
         public List<Avaliacao> Avaliacoes { get; private set; } = new();
+        public List<string> Materias { get; set; } = new();
 
         public ProfessorCredencial? Credencial { get; private set; }
 
         private Professor() { }
 
-        public Professor(int rm, string nome)
+        public Professor(int rm, string nome, List<string> materias)
         {
             Rm = rm;
             Nome = nome;
+            Materias = materias;
         }
 
         public void AtribuirCredencial(ProfessorCredencial credencial)
@@ -26,9 +28,9 @@ namespace EducaRank.Domain.Models
             Credencial = credencial;
         }
 
-        public static Professor Criar(int rm, string nome, string senha)
+        public static Professor Criar(int rm, string nome, List<string> materias, string senha)
         {
-            var professor = new Professor(rm, nome);
+            var professor = new Professor(rm, nome, materias);
             var credencial = ProfessorCredencial.Criar(professor.Id, senha);
             professor.AtribuirCredencial(credencial);
             return professor;

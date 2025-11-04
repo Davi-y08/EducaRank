@@ -4,7 +4,6 @@
     {
         public string Id { get; set; } = string.Empty;
         public string Nome { get; set; } = string.Empty;
-        public string Curso { get; set; } = string.Empty;
         public int SalaId { get; set; }
         public int Rm { get; set; }
         public int Idade { get; set; }
