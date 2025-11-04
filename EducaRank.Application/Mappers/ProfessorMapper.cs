@@ -10,7 +10,6 @@ namespace EducaRank.Application.Mappers
             var professor = Professor.Criar(
                 dto.Rm,
                 dto.Nome,
-                dto.Salas,
                 dto.Senha
                 );
 
@@ -26,7 +25,6 @@ namespace EducaRank.Application.Mappers
             {
                 Id = professor.Id,
                 Nome = professor.Nome,
-                Salas = professor.Salas,
                 Foto = professor.Foto,
                 AvaliacoesFeitas = professor.AvaliacoesFeitas
             };

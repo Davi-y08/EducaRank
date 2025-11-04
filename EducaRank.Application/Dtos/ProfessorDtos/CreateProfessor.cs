@@ -12,9 +12,6 @@ namespace EducaRank.Application.Dtos.ProfessorDtos
         [MaxLength(100)]
         public string Nome { get; set; } = string.Empty;
 
-        [Required]
-        public List<Sala> Salas { get; set; } = new List<Sala>();
-
         [Required(ErrorMessage = "Senha é obrigatória")]
         [MinLength(6, ErrorMessage = "A senha deve ter no mínimo 6 digitos")]
         public string Senha { get; set; } = string.Empty;

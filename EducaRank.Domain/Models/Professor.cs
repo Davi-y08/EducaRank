@@ -7,7 +7,6 @@ namespace EducaRank.Domain.Models
         public string Id { get; private set; } = Guid.NewGuid().ToString();
         public int Rm { get; private set; }
         public string Nome { get; private set; } = string.Empty;
-        public List<Sala> Salas { get; private set; } = new();
         public string Foto { get; private set; } = string.Empty;
         public int AvaliacoesFeitas { get; private set; }
         public List<Avaliacao> Avaliacoes { get; private set; } = new();
@@ -16,11 +15,10 @@ namespace EducaRank.Domain.Models
 
         private Professor() { }
 
-        public Professor(int rm, string nome, List<Sala> salas)
+        public Professor(int rm, string nome)
         {
             Rm = rm;
             Nome = nome;
-            Salas = salas;
         }
 
         public void AtribuirCredencial(ProfessorCredencial credencial)
@@ -28,9 +26,9 @@ namespace EducaRank.Domain.Models
             Credencial = credencial;
         }
 
-        public static Professor Criar(int rm, string nome, List<Sala> salas, string senha)
+        public static Professor Criar(int rm, string nome, string senha)
         {
-            var professor = new Professor(rm, nome, salas);
+            var professor = new Professor(rm, nome);
             var credencial = ProfessorCredencial.Criar(professor.Id, senha);
             professor.AtribuirCredencial(credencial);
             return professor;

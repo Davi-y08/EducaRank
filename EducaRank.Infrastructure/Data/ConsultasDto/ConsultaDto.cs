@@ -22,9 +22,29 @@ namespace EducaRank.Infrastructure.Data.ConsultasDto
 
     public class ProfessorConsulta
     {
+        [Column("rm")]
         public int RM { get; set; }
+
+        [Column("nome")]
         public string Nome { get; set; } = string.Empty;
-        public string Disciplina { get; set; } = string.Empty;
+    }
+
+    public class MateriaConsulta
+    {
+        [Column("id")]
+        public int Id { get; set; }
+
+        [Column("materia")]
+        public string Nome { get; set; } = string.Empty;
+    }
+
+    public class ProfessorMateriaConsulta
+    {
+        [Column("professor_rm")]
+        public int RMProfessor { get; set; }
+
+        [Column("materia_id")]
+        public int IdMateria { get; set; }
     }
 
     public class SalaConsulta
