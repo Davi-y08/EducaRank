@@ -13,5 +13,13 @@
             Id = id;
             NomeSala = nome;
         }
+
+        public static Sala Criar(string nome)
+        {
+            if (string.IsNullOrWhiteSpace(nome))
+                throw new ArgumentException("O nome da sala é obrigatório.");
+
+            return new Sala { NomeSala = nome.Trim() };
+        }
     }
 }

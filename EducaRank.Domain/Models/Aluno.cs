@@ -7,7 +7,6 @@ namespace EducaRank.Domain.Models
         public string Id { get; private set; } = Guid.NewGuid().ToString();
         public int Rm { get; private set; }
         public string Nome { get; private set; } = string.Empty;
-        public string Curso { get; private set; } = string.Empty;
         public Sala? Sala { get; private set; }
         public int SalaId { get; private set; }
         public string Etec { get; private set; } = string.Empty;
@@ -22,11 +21,10 @@ namespace EducaRank.Domain.Models
 
         private Aluno() { }
 
-        public Aluno(int rm, string nome, string curso, Sala sala, string etec, int idade, AlunoCredencial credencial)
+        public Aluno(int rm, string nome, Sala sala, string etec, int idade, AlunoCredencial credencial)
         {
             Rm = rm;
             Nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            Curso = curso ?? throw new ArgumentNullException(nameof(curso));
             SalaId = sala.Id;
             Sala = sala;
             Etec = etec ?? throw new ArgumentNullException(nameof(etec));
@@ -41,9 +39,9 @@ namespace EducaRank.Domain.Models
             Credencial = credencial;
         }
 
-        public static Aluno Criar(int rm, string nome, string curso, Sala sala, string etec, int idade, string senha)
+        public static Aluno Criar(int rm, string nome, Sala sala, string etec, int idade, string senha)
         {
-            var aluno = new Aluno(rm, nome, curso, sala, etec, idade, null!);
+            var aluno = new Aluno(rm, nome, sala, etec, idade, null!);
             var credencial = AlunoCredencial.Criar(aluno.Id, senha);
             aluno.AtribuirCredencial(credencial);
             return aluno;
@@ -68,5 +66,6 @@ namespace EducaRank.Domain.Models
 
             Foto = caminho_foto;
         }
+
     }
 }

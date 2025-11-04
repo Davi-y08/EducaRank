@@ -1,15 +1,76 @@
 ﻿using EducaRank.Domain.Interfaces;
 using EducaRank.Domain.Models;
+using EducaRank.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace EducaRank.Infrastructure.Repositories
 {
     public class AlunoRepo : IAlunoService
     {
-
-
-        public Task<Aluno> Create(Aluno aluno_model)
+        private readonly AppDbContext _appDbContext;
+        private readonly LegadoEscolaDbContext _legadoEscolaDbContext;
+        public AlunoRepo(AppDbContext appDbContext, LegadoEscolaDbContext legadoEscolaDbContext)
         {
-            throw new NotImplementedException();
+            _appDbContext = appDbContext;
+            _legadoEscolaDbContext = legadoEscolaDbContext;
+        }
+
+        public async Task<Aluno> Create(int rm, string senha)
+        {
+            var aluno_existente = await _appDbContext.Alunos.FirstOrDefaultAsync(a => a.Rm == rm);
+
+            if (aluno_existente != null)
+                throw new InvalidOperationException("O aluno já existe no EducaRank");
+
+            var aluno_legado = await _legadoEscolaDbContext.AlunoBdEtec
+                .FromSqlRaw(@"
+            SELECT 
+                a.rm AS RM,
+                a.nome AS Nome,
+                s.sala AS Sala,
+                a.etec AS Etec,
+                a.dt_nascimento AS DataNascimento
+            FROM tb_aluno a
+            LEFT JOIN tb_sala s ON a.sala_id = s.id
+            WHERE a.rm = {0}", rm)
+                .FirstOrDefaultAsync();
+
+            if (aluno_legado == null)
+                throw new KeyNotFoundException("Aluno não encontrado na base da Etec.");
+
+            var sala_existente = await _appDbContext.Salas.FirstOrDefaultAsync(a => a.NomeSala == aluno_legado.Sala);
+
+            Sala sala;
+
+            if (sala_existente == null)
+            {
+                sala = Sala.Criar(aluno_legado.Sala);
+                _appDbContext.Salas.Add(sala);
+                await _appDbContext.SaveChangesAsync();
+            }
+
+            else
+            {
+                sala = sala_existente;
+            }
+
+            var idade = DateTime.Now.Year - aluno_legado.DataNascimento.Year;
+            if (DateTime.Now.DayOfYear < aluno_legado.DataNascimento.DayOfYear)
+                idade--;
+
+            var novo_aluno = Aluno.Criar(
+                rm: aluno_legado.RM,
+                nome: aluno_legado.Nome,
+                sala: sala,
+                etec: aluno_legado.Etec,
+                idade: idade,
+                senha: senha
+            );
+
+            _appDbContext.Add(novo_aluno);
+            await _appDbContext.SaveChangesAsync();
+
+            return novo_aluno;
         }
 
         public Task<bool> DeleteAlunoFromEducaRank(string aluno_id)

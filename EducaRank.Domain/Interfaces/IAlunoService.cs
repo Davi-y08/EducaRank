@@ -7,9 +7,8 @@ namespace EducaRank.Domain.Interfaces
         Task<IEnumerable<Aluno>> GetAll();
         Task<Aluno?> GeById(string id);
         Task<Aluno> GetPontuacao(string aluno_id);
-
         Task<Aluno> Update(Aluno aluno_model, string aluno_id);
-        Task<Aluno> Create(Aluno aluno_model);
+        Task<Aluno> Create(int rm, string senha);
         Task<bool> DeleteAlunoFromEducaRank(string aluno_id);
         Task<IEnumerable<Aluno>> SearchAlunos(string query_str);
     }

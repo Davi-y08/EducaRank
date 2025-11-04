@@ -9,23 +9,6 @@ namespace EducaRank.Application.Dtos.AlunoDtos
         [Required(ErrorMessage = "Rm necessário")]
         public int Rm { get; set; }
 
-        [Required(ErrorMessage = "Nome é obrigatório")]
-        [MaxLength(100)]
-        public string Nome { get; set; } = string.Empty;
-
-        [Required]
-        public string Curso { get; set; } = string.Empty;
-
-        [Required]
-        public Sala? Sala { get; set; }
-
-        [Required]
-        public string Etec { get; set; } = string.Empty;
-
-        [Required]
-        [Range(13, 100)]
-        public int Idade { get; set; }
-
         [Required(ErrorMessage = "Senha é obrigatória")]
         [MinLength(6, ErrorMessage = "A senha deve ter no mínimo 6 digitos")]
         public string Senha { get; set; } = string.Empty;
