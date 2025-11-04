@@ -12,7 +12,6 @@ namespace EducaRank.Application.Mappers
                 Id = aluno.Id,
                 Rm = aluno.Rm,
                 Nome = aluno.Nome,
-                Curso = aluno.Curso,
                 SalaId = aluno.SalaId,
                 Etec = aluno.Etec,
                 Idade = aluno.Idade,

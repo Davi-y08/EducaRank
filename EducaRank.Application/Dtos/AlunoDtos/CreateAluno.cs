@@ -17,6 +17,6 @@ namespace EducaRank.Application.Dtos.AlunoDtos
         [Compare("Senha", ErrorMessage = "Senhas não coincidem")]
         public string ConfirmarSenha { get; set; } = string.Empty;
 
-        public IFormFile? Foto { get; set; }
+        // public IFormFile? Foto { get; set; }
     }
 }

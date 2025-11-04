@@ -22,36 +22,19 @@ namespace EducaRank.Infrastructure.Repositories
             if (aluno_existente != null)
                 throw new InvalidOperationException("O aluno já existe no EducaRank");
 
-            var aluno_legado = await _legadoEscolaDbContext.AlunoBdEtec
-                .FromSqlRaw(@"
-            SELECT 
-                a.rm AS RM,
-                a.nome AS Nome,
-                s.sala AS Sala,
-                a.etec AS Etec,
-                a.dt_nascimento AS DataNascimento
-            FROM tb_aluno a
-            LEFT JOIN tb_sala s ON a.sala_id = s.id
-            WHERE a.rm = {0}", rm)
-                .FirstOrDefaultAsync();
+            var aluno_legado = await _legadoEscolaDbContext.AlunoBdEtec 
+                .FirstOrDefaultAsync(a => a.RM == rm);
 
             if (aluno_legado == null)
                 throw new KeyNotFoundException("Aluno não encontrado na base da Etec.");
 
-            var sala_existente = await _appDbContext.Salas.FirstOrDefaultAsync(a => a.NomeSala == aluno_legado.Sala);
-
-            Sala sala;
+            var sala_existente = await _appDbContext.Salas.FirstOrDefaultAsync(s => s.NomeSala == aluno_legado.SalaId.ToString());
+            var sala = sala_existente ?? Sala.Criar(aluno_legado.SalaId.ToString());
 
             if (sala_existente == null)
             {
-                sala = Sala.Criar(aluno_legado.Sala);
                 _appDbContext.Salas.Add(sala);
                 await _appDbContext.SaveChangesAsync();
-            }
-
-            else
-            {
-                sala = sala_existente;
             }
 
             var idade = DateTime.Now.Year - aluno_legado.DataNascimento.Year;

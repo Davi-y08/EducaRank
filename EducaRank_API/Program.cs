@@ -21,6 +21,11 @@ builder.Services.AddScoped<IProfessorService, ProfessorRepo>();
 builder.Services.AddScoped<IAvaliacoesService, AvaliacaoRepo>();
 builder.Services.AddScoped<IEscolaIntegrationService, EscolaRepo>();
 
+builder.Services.AddControllers()
+    .AddJsonOptions(x =>
+        x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
