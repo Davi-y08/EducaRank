@@ -6,5 +6,6 @@ namespace EducaRank.Domain.Interfaces
     {
         Task<Aluno?> GetAlunoFromEscolaByRM(int RM);
         Task<IEnumerable<Aluno>> GetAlunosFromEscola();
+        Task<string> VerificarTipoUsuarioAoCadastro(int rm);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace EducaRank_API.Controllers
 {
-    public class AlunoController
+    public class ProfessorController
     {
     }
 }

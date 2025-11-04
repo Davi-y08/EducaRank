@@ -1,13 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using EducaRank.Domain.Models;
+﻿using EducaRank.Domain.Models;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
-namespace EducaRank.Application.Dtos.AlunoDtos
+namespace EducaRank.Application.Dtos.ProfessorDtos
 {
-    public class CreateAluno
+    public class CreateUserDto
     {
-        [Required(ErrorMessage = "Rm necessário")]
         public int Rm { get; set; }
+
+        [Required(ErrorMessage = "Nome é obrigatório")]
+        [MaxLength(100)]
+        public string Nome { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Senha é obrigatória")]
         [MinLength(6, ErrorMessage = "A senha deve ter no mínimo 6 digitos")]
@@ -16,7 +19,6 @@ namespace EducaRank.Application.Dtos.AlunoDtos
         [Required(ErrorMessage = "Confirmar senha é obrigatório")]
         [Compare("Senha", ErrorMessage = "Senhas não coincidem")]
         public string ConfirmarSenha { get; set; } = string.Empty;
-
         // public IFormFile? Foto { get; set; }
     }
 }

@@ -61,7 +61,7 @@ namespace EducaRank.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Aluno?> GeById(string id)
+        public Task<Aluno?> GetById(string id)
         {
             throw new NotImplementedException();
         }

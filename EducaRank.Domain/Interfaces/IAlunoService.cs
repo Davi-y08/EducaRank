@@ -5,7 +5,7 @@ namespace EducaRank.Domain.Interfaces
     public interface IAlunoService
     {
         Task<IEnumerable<Aluno>> GetAll();
-        Task<Aluno?> GeById(string id);
+        Task<Aluno?> GetById(string id);
         Task<Aluno> GetPontuacao(string aluno_id);
         Task<Aluno> Update(Aluno aluno_model, string aluno_id);
         Task<Aluno> Create(int rm, string senha);
