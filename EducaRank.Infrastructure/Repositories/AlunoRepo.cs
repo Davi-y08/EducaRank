@@ -2,6 +2,7 @@
 using EducaRank.Domain.Models;
 using EducaRank.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EducaRank.Infrastructure.Repositories
 {
@@ -56,29 +57,58 @@ namespace EducaRank.Infrastructure.Repositories
             return novo_aluno;
         }
 
-        public Task<bool> DeleteAlunoFromEducaRank(string aluno_id)
+        public async Task<bool> DeleteAlunoFromEducaRank(string aluno_id)
         {
-            throw new NotImplementedException();
+            var aluno = await _appDbContext.Alunos.FindAsync(aluno_id);
+
+            if (aluno != null)
+            {
+                _appDbContext.Alunos.Remove(aluno);
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
         }
 
-        public Task<Aluno?> GetById(string id)
+        public async Task<Aluno?> GetById(string id)
         {
-            throw new NotImplementedException();
+            var aluno = await _appDbContext.Alunos.FirstOrDefaultAsync(a => a.Id == id);
+
+            if (aluno == null)
+            {
+                return null;
+            }
+
+            return aluno;
         }
 
-        public Task<IEnumerable<Aluno>> GetAll()
+        public async Task<IEnumerable<Aluno>> GetAll()
         {
-            throw new NotImplementedException();
+            var alunos = await _appDbContext.Alunos.ToListAsync();
+            return alunos;
         }
 
-        public Task<Aluno> GetPontuacao(string aluno_id)
+        public async Task<int> GetPontuacao(string aluno_id)
         {
-            throw new NotImplementedException();
+            var aluno = await _appDbContext.Alunos.FirstOrDefaultAsync(x => x.Id == aluno_id);
+
+            if (aluno == null)
+            {
+                return -1;
+            }
+
+            return aluno.Pontuacao;
         }
 
-        public Task<IEnumerable<Aluno>> SearchAlunos(string query_str)
+        public async Task<IEnumerable<Aluno>> SearchAlunos(string query_str)
         {
-            throw new NotImplementedException();
+            query_str = query_str.Trim();
+
+            return await _appDbContext.Alunos.Where(a => EF.Functions.Like(a.Nome.ToLower(), $"%{query_str}%"))
+                .OrderBy(a => a.Nome.ToLower().StartsWith(query_str) ? 0 : 1)
+                .ThenBy(a => a.Nome)
+                .ToListAsync();
         }
 
         public Task<Aluno> Update(Aluno aluno_model, string aluno_id)

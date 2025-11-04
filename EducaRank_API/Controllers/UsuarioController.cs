@@ -1,8 +1,6 @@
 ﻿using EducaRank.Application.Dtos.ProfessorDtos;
 using EducaRank.Application.Mappers;
 using EducaRank.Domain.Interfaces;
-using EducaRank.Domain.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EducaRank_API.Controllers
