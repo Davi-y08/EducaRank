@@ -89,6 +89,8 @@ namespace EducaRank.Infrastructure.Repositories
             return alunos;
         }
 
+
+
         public async Task<int> GetPontuacao(string aluno_id)
         {
             var aluno = await _appDbContext.Alunos.FirstOrDefaultAsync(x => x.Id == aluno_id);
@@ -101,19 +103,42 @@ namespace EducaRank.Infrastructure.Repositories
             return aluno.Pontuacao;
         }
 
-        public async Task<IEnumerable<Aluno>> SearchAlunos(string query_str)
+        public async Task<IEnumerable<Aluno>> SearchAlunos(string query_str, int page, int pageSize)
         {
             query_str = query_str.Trim();
 
             return await _appDbContext.Alunos.Where(a => EF.Functions.Like(a.Nome.ToLower(), $"%{query_str}%"))
                 .OrderBy(a => a.Nome.ToLower().StartsWith(query_str) ? 0 : 1)
                 .ThenBy(a => a.Nome)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 
         public Task<Aluno> Update(Aluno aluno_model, string aluno_id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Aluno>> PontuacaoComFiltos(string? etec = null, int? salaId = null, int? idadeMin = null, int? idadeMax = null, int page = 1, int pageSize = 10)
+        {
+            var query = _appDbContext.Alunos.AsQueryable();
+
+            if (!string.IsNullOrEmpty(etec))
+                query = query.Where(a => a.Etec == etec);
+
+            if (salaId.HasValue)
+                query = query.Where(a => a.SalaId == salaId);
+
+            if (idadeMin.HasValue)
+                query = query.Where(a => a.Idade >= idadeMin);
+
+            if(idadeMax.HasValue)
+                query = query.Where(a => a.Idade <= idadeMax);
+
+            var alunos = await query.OrderByDescending(a => a.Pontuacao).Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return alunos;
         }
     }
 }
