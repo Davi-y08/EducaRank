@@ -29,7 +29,8 @@ namespace EducaRank.Infrastructure.Repositories
             if(professor_legado == null)
                 throw new KeyNotFoundException("Professor não encontrado na base da Etec.");
 
-            if()
+            if (professor_legado.Cpf != cpf)
+                throw new UnauthorizedAccessException("Identidade não reconhecida (CPFs diferentes)");
 
             var materiaNomes = await _legadoEscolaDbContext.ProfessorMateriaBdEtec
                 .Where(p => p.RMProfessor == rm) 

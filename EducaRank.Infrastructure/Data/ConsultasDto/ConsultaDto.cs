@@ -30,6 +30,9 @@ namespace EducaRank.Infrastructure.Data.ConsultasDto
 
         [Column("nome")]
         public string Nome { get; set; } = string.Empty;
+
+        [Column("cpf")]
+        public string Cpf { get; set; } = string.Empty;
     }
 
     public class MateriaConsulta

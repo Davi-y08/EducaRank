@@ -52,7 +52,7 @@ namespace EducaRank_API.Controllers
                 }
                 else if (tipoUsuario == "professor")
                 {
-                    var professor = await _professorService.Create(rm, senha);
+                    var professor = await _professorService.Create(rm, senha, cpf);
                     var readProfessor = professor.ToReadProfessor();
 
                     return CreatedAtAction(
@@ -101,4 +101,6 @@ namespace EducaRank_API.Controllers
             }
         }
     }
+
+
 }
