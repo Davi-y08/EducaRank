@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: "Archivo", sans-serif;
+  background-color: #fff;
+  color: #222;
+}
+
+.img-tilted {
+  display: block;
+  width: 300px;
+  transform: rotateY(-15deg) rotateX(10deg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25));
+  cursor: pointer;
+}
+
+.img-tilted:hover {
+  transform: rotateY(-5deg) rotateX(5deg) translateY(-5px);
+  filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.35));
+}
+
+.main-class-telainicial{
+    display: flex;
+}
+

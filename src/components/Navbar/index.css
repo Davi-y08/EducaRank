@@ -1,0 +1,29 @@
+
+
+header{
+    .navbar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 3%;
+        border-bottom: 2px solid red;
+        box-shadow: 0px 15px 16px -7px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo{
+        img{
+            object-fit: cover;
+            width: 45px;
+            height: 45px;
+        }
+    }
+
+    .nav-items {
+        display: flex;
+        list-style: none;
+        gap: 32px;
+        align-items: center;
+    }
+
+
+}
