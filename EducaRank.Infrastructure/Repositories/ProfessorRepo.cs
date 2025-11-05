@@ -57,29 +57,54 @@ namespace EducaRank.Infrastructure.Repositories
             return novo_professor;
         }
 
-        public Task<bool> Delete(string professorId)
+        public async Task<bool> Delete(string professorId)
         {
-            throw new NotImplementedException();
+            var professor = await _appDbContext.Professores.FindAsync(professorId);
+
+            if (professor == null)
+                return false;
+
+            _appDbContext.Professores.Remove(professor);
+            await _appDbContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<IEnumerable<Professor>> GetAll()
+        public async Task<IEnumerable<Professor>> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<Professor> professores = await _appDbContext.Professores.ToListAsync();
+            return professores;
         }
 
-        public Task<Professor> GetById(string professorId)
+        public async Task<Professor> GetById(string professorId)
         {
-            throw new NotImplementedException();
+            var professor = await _appDbContext.Professores.FindAsync(professorId);
+
+            if (professor == null)
+                return null!;
+
+            return professor;
         }
 
-        public Task<int> GetNrAvaliacoes(string professorId)
+        public async Task<int> GetNrAvaliacoes(string professorId)
         {
-            throw new NotImplementedException();
+            int avaliacoes = await _appDbContext.Professores.Where(x => x.Id == professorId)
+                .Select(x => x.AvaliacoesFeitas)
+                .FirstOrDefaultAsync();
+
+            if (avaliacoes == 0)
+                throw new KeyNotFoundException("Professor não encontrado ou nenhuma avaliação feita");
+
+            return avaliacoes;
         }
 
-        public Task<IEnumerable<Professor>> Search(string query)
+        public async Task<IEnumerable<Professor>> Search(string query)
         {
-            throw new NotImplementedException();
+            query = query.Trim();
+
+            return await _appDbContext.Professores.Where(a => EF.Functions.Like(a.Nome.ToLower(), $"%{query}%"))
+                .OrderBy(a => a.Nome.ToLower().StartsWith(query) ? 0 : 1)
+                .ThenBy(a => a.Nome)
+                .ToListAsync();
         }
 
         public Task<Professor> Update(Professor professorModel, string professorId)
