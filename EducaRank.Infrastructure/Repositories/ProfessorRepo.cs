@@ -17,7 +17,7 @@ namespace EducaRank.Infrastructure.Repositories
             _legadoEscolaDbContext = legadoEscolaDbContext;
         }
 
-        public async Task<Professor> Create(int rm, string senha)
+        public async Task<Professor> Create(int rm, string senha, string cpf)
         {
             var professorExistente = await _appDbContext.Professores.FirstOrDefaultAsync(a => a.Rm == rm);
 
@@ -28,6 +28,8 @@ namespace EducaRank.Infrastructure.Repositories
 
             if(professor_legado == null)
                 throw new KeyNotFoundException("Professor não encontrado na base da Etec.");
+
+            if()
 
             var materiaNomes = await _legadoEscolaDbContext.ProfessorMateriaBdEtec
                 .Where(p => p.RMProfessor == rm) 

@@ -1,4 +1,4 @@
-﻿    using EducaRank.Domain.Interfaces;
+﻿using EducaRank.Domain.Interfaces;
 using EducaRank.Domain.Models;
 using EducaRank.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,7 @@ namespace EducaRank.Infrastructure.Repositories
             _legadoEscolaDbContext = legadoEscolaDbContext;
         }
 
-        public async Task<Aluno> Create(int rm, string senha)
+        public async Task<Aluno> Create(int rm, string senha, string cpf)
         {
             var aluno_existente = await _appDbContext.Alunos.FirstOrDefaultAsync(a => a.Rm == rm);
 
@@ -28,6 +28,9 @@ namespace EducaRank.Infrastructure.Repositories
 
             if (aluno_legado == null)
                 throw new KeyNotFoundException("Aluno não encontrado na base da Etec.");
+
+            if (aluno_legado.Cpf != cpf)
+                throw new UnauthorizedAccessException("Identidade não reconhecida");
 
             var sala_existente = await _appDbContext.Salas.FirstOrDefaultAsync(s => s.NomeSala == aluno_legado.SalaId.ToString());
             var sala = sala_existente ?? Sala.Criar(aluno_legado.SalaId.ToString());

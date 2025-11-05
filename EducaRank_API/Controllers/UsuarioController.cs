@@ -23,16 +23,19 @@ namespace EducaRank_API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUsuario([FromForm] CreateUserDto dto)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
                 int rm = dto.Rm;
                 string senha = dto.Senha;
-
+                string cpf = dto.Cpf;
                 string tipoUsuario = await _escolaIntegrationService.VerificarTipoUsuarioAoCadastro(dto.Rm);
 
                 if (tipoUsuario == "aluno")
                 {
-                    var aluno = await _aluno_service.Create(rm, senha);
+                    var aluno = await _aluno_service.Create(rm, senha, cpf);
                     var readAluno = aluno.ToReadAluno();
 
                     return CreatedAtAction(

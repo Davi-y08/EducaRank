@@ -7,6 +7,9 @@ namespace EducaRank.Infrastructure.Data.ConsultasDto
         [Column("rm")]
         public int RM { get; set; }
 
+        [Column("cpf")]
+        public string Cpf { get; set; } = string.Empty;
+
         [Column("nome")]
         public string Nome { get; set; } = string.Empty;
 

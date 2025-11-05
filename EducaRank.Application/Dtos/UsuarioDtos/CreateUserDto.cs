@@ -16,6 +16,9 @@ namespace EducaRank.Application.Dtos.ProfessorDtos
         [Compare("Senha", ErrorMessage = "Senhas não coincidem")]
         public string ConfirmarSenha { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "O cpf é necessário")]
+        public string Cpf { get; set; } = string.Empty;
+
         // public IFormFile? Foto { get; set; }
     }
 }
