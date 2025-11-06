@@ -1,11 +1,14 @@
 using EducaRank.Domain.Interfaces;
 using EducaRank.Infrastructure.Data;
 using EducaRank.Infrastructure.Repositories;
+using EducaRank.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,13 +16,15 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-    
+builder.Services.AddControllers();
+
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<LegadoEscolaDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("LegadoConnection")));
 
+builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<IAlunoService, AlunoRepo>();
 builder.Services.AddScoped<IProfessorService, ProfessorRepo>();
 builder.Services.AddScoped<IAvaliacoesService, AvaliacaoRepo>();
@@ -91,6 +96,31 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization(option =>
 {
     option.AddPolicy("ProfessorOnly", policy => policy.RequireRole("Professor"));
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("LoginPolicy", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: key => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(1),
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 0
+            }));
+});
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("LoginPolicy", config =>
+    {
+        config.PermitLimit = 5;
+        config.Window = TimeSpan.FromMinutes(1);
+        config.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        config.QueueLimit = 0;
+    });
 });
 
 var app = builder.Build();

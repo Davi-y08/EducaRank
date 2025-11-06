@@ -47,7 +47,7 @@ namespace EducaRank.Infrastructure.Services
             return handler.WriteToken(token);
         }
 
-        public string GenerateTokenAluno(Professor professor)
+        public string GenerateTokenProfessor(Professor professor)
         {
             var key = Encoding.UTF8.GetBytes(_configuration["JWT:Key"]!);
 
