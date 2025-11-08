@@ -33,6 +33,9 @@ namespace EducaRank_API.Controllers
         [EnableRateLimiting("LoginPolicy")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var aux_aluno = await _context.Alunos.FirstOrDefaultAsync(x => x.Rm == dto.Rm);
 
             if (aux_aluno != null && aux_aluno.Credencial != null && aux_aluno.Credencial.VerificarSenha(dto.Senha))
