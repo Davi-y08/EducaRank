@@ -18,6 +18,13 @@ namespace EducaRank.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Professor>()
+                .Property(p => p.Materias)
+                .HasConversion(
+                v => string.Join(',', v), 
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList() 
+            );
+
             modelBuilder.Entity<Aluno>(entity =>
             {
                 entity.HasKey(a => a.Id);

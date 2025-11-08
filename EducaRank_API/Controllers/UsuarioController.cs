@@ -95,7 +95,7 @@ namespace EducaRank_API.Controllers
                     var jwt = _tokenService.GenerateTokenProfessor(professor);
 
                     return CreatedAtAction(
-                        actionName: "GetById",
+                        actionName: nameof(ProfessorController.GetProfessor),
                         controllerName: "Professor",
                         routeValues: new { id = professor.Id },
                         value: new
@@ -130,15 +130,15 @@ namespace EducaRank_API.Controllers
                     message = ex.Message
                 });
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new
-                {
-                    success = false,
-                    message = "Erro interno no servidor.",
-                    detalhe = ex.Message
-                });
-            }
+            //catch (Exception ex)
+            //{
+            //    return StatusCode(500, new
+            //    {
+            //        success = false,
+            //        message = "Erro interno no servidor.",
+            //        detalhe = ex.Message
+            //    });
+            //}
         }
     }
 }

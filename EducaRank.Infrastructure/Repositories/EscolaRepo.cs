@@ -36,7 +36,7 @@ namespace EducaRank.Infrastructure.Repositories
 
             else if(professor != null)
             {
-                return "professsor";
+                return "professor";
             }
 
             return "notExist";

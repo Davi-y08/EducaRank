@@ -55,7 +55,10 @@ namespace EducaRank.Infrastructure.Repositories
                 nome: professor_legado.Nome,
                 materias: materiaNomes,
                 senha: senha
-                );
+            );
+
+            _appDbContext.Professores.Add(novo_professor);
+            await _appDbContext.SaveChangesAsync();
 
             return novo_professor;
         }
