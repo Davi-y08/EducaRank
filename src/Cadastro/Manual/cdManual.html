@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cdManual.css">
+    <title>Cadastro manual - EducaRank</title>
+</head>
+<body>
+    <header>
+        <nav class="botoes">
+            <a href="../cadastro.html" id="btnVoltar">
+                <img src="../../assets/left-chevron.png" alt="Ícone de seta para esquerda" class="icon">
+                Voltar
+            </a>
+            
+            <a href="#" class="botao" id="btnEntrar">
+                Entrar
+            </a>
+        </nav>
+    </header>
+    <main>
+        <div class="form_manual" id="formManual">
+          <form action="#" method="post">
+            <div>
+                <h2 class="archivo-font" id="form__title">Seja bem-vindo(a)!</h2>
+                <p class="form__text">Por favor, crie uma conta para continuar.</p>
+                <p class="form__text-small">Manualmente</p>
+            </div>
+
+            <label for="nome">Nome completo</label><br>
+            <input type="text" name="nome" id="nome"><br>
+
+            <label for="email">Email institucional</label><br>
+            <input type="email" name="email" id="email" required><br>
+
+            <label for="telefone">Telefone</label><br>
+            <input type="tel" name="telefone" id="telefone"><br>
+
+              <div class="form__flex">  <!-- Classes criadas para poder ter um melhor alinhamento do flexbox do css  -->
+                <div class="flex">
+                    <label for="dtNascimento">Nascimento</label>
+                    <input id="dtNascimento" type="date">
+                </div>
+
+                <div class="flex">
+                    <label for="cpf">CPF</label>
+                    <input id="cpf" type="text">
+                </div>
+
+                <div class="flex">
+                    <label for="senha">Crie sua senha</label>
+                    <input id="senha" type="password">
+                </div>
+
+                <div class="flex">
+                    <label for="repetirSenha">Repita a senha</label>
+                    <input id="repetirSenha" type="password">
+                </div>
+             </div>
+
+            <input type="radio" name="lembre" id="lembre1">
+            <label for="lembre" id="lembre">Lembre de mim</label><br>
+
+            <button type="submit" class="botao" id="cadastrar">Cadastrar</button>
+        </form>
+        </div>
+    </main>
+    <footer>
+        
+    </footer>
+</body>
+</html>

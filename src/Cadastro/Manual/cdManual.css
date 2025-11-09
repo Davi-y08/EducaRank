@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Aplica a fonte principal, zera margens e paddings em todos os elementos. */
+* {
+    font-family: 'Archivo', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Definição de Variáveis CSS*/
+:root {
+    /* Tira o scroll */
+    overflow: hidden;
+    /* Cores Primárias */
+    --cor-acent: #880000;      /* Cor de acentuação/sombra (Vermelho mais escuro) */
+    --cor-primaria: #B30000;   /* Cor principal da marca (Vermelho vibrante) */
+
+    /* Cores de fundo */
+    --cor-fundo-base: #FFFFFF; /* Fundo principal (branco) */
+    --cor-fundo-secundaria: #FFCFCF; /* Fundo secundário, usado em campos de input */
+
+    /* Cores de texto */
+    --cor-texto-padrao: #333333; /* Cor padrão para textos */
+    --cor-texto-secundaria: #808080; /* Cor secundária para textos (cinza) */
+}
+
+/* Estilos de Botões no Header (Navegação) */
+
+/* Estilos aplicados aos links de Voltar e Entrar (botões de navegação) */
+#btnVoltar, 
+#btnEntrar {
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: var(--cor-primaria); /* Usa a cor primária como cor do texto */
+    cursor: pointer;
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Container que organiza os botões do cabeçalho */
+.botoes {
+    display: flex;
+    justify-content: space-between; /* Distribui os itens para as extremidades */
+    padding: 1rem 2rem;
+    position: relative;
+}
+
+/* Estilos específicos para o botão de Voltar */
+#btnVoltar {
+    background: none;
+    color: var(--cor-primaria);
+    font-size: 1.3rem;
+    gap: 0.4rem; /* Espaçamento entre o ícone e o texto */
+    text-decoration: none;
+}
+
+#btnVoltar img {
+    height: 2rem;
+    width: 2rem;
+}
+
+/* Estilização do link dentro do botão Voltar*/
+#btnVoltar > a {
+    color: var(--cor-primaria);
+    text-decoration: none; /* Remove o sublinhado padrão do link */
+}
+
+/* Estilos específicos para o botão de Entrar */
+#btnEntrar {
+    background-color: var(--cor-primaria); /* Fundo vermelho principal */
+    color: var(--cor-fundo-base); /* Texto branco */
+    padding: 1rem 4rem;
+    text-decoration: none;
+}
+
+/* Estilos do Formulário Principal (Container) */
+
+/* Estiliza o container principal do formulário de cadastro manual */
+.form_manual {
+    background-color: var(--cor-fundo-base); /* Fundo branco */
+    border-radius: 20px;
+    /* Sombra complexa que cria o efeito "elevado" com borda inferior */
+    box-shadow:
+        0 10px 30px rgba(33, 32, 32, 0.375), 
+        0px 18px 0px 0px #E6E6E6;
+    height: 40rem; /* Altura ajustada para o formulário manual (maior) */
+    margin-bottom: 20rem;
+    margin-left: 33rem; /* Centraliza o formulário na tela (ajuste manual) */
+    width: 29rem;
+}
+
+/* Estilização dos campos de input e do checkbox/radio 'Lembre de mim' */
+/* Aplica estilos de fundo, borda e padding a todos os inputs e ao #lembre1 */
+.form_manual input,
+#lembre1 {
+    background-color: var(--cor-fundo-secundaria); /* Fundo rosa claro */
+    border: 2px solid;
+    border-color: var(--cor-primaria);
+    border-radius: .7rem;
+    margin-bottom: .6rem;
+    margin-left: 2rem;
+    padding: .6rem;
+    padding-right: 20rem; /* Define um padding grande à direita para inputs de linha única */
+}
+
+/* Estilos gerais para labels dentro do formulário */
+.form_manual label {
+    margin-left: 2rem;
+}
+
+/* Estilos de Títulos e Textos */
+
+/* Título principal do formulário */
+#form__title {
+    color: var(--cor-primaria);
+    font-weight: 900;
+    margin-left: 2rem;
+    padding-top: 2.8rem;
+}
+
+/* Texto descritivo/secundário */
+.form__text {
+    color: var(--cor-primaria);
+    margin-left: 2.1rem;
+    margin-top: 0.2rem;
+}
+
+/* Texto de subtítulo/seção (em caixa alta) */
+.form__text-small {
+    color: var(--cor-primaria);
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 1.6rem;
+    margin-left: 2.1rem;
+    margin-top: 2rem;
+    text-transform: uppercase;
+}
+
+/* Estilos para o Layout de Campos em Linha (Flexbox) */
+
+/* Container Flexbox para organizar campos lado a lado (ex: CPF e Data de Nascimento) */
+.form__flex {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+}
+
+/* Container de cada par label/input dentro do .form__flex */
+.form__flex .flex {
+    display: flex;
+    /* Faz com que cada item ocupe aproximadamente metade da linha (50% menos margem) */
+    flex: 1 1 calc(50% - 1.5rem); 
+    flex-direction: column; /* Organiza label e input verticalmente */
+}
+
+/* Define a largura dos inputs dentro do .form__flex */
+.form__flex input {
+    width: 55%; 
+}
+
+/* Aplica margem à label de índice par (o segundo elemento em cada linha) */
+.form__flex label:nth-child(even) {
+    margin-left: 2rem;
+}
+
+/* Ajuste de Padding Específico para campos curtos (segunda coluna) */
+#cpf, #senha, #repetirSenha, #dtNascimento {
+    padding-right: 2rem; /* Reduz o padding para que caibam lado a lado */
+}
+
+/* Aplica margem esquerda para inputs fora do bloco .form__flex (para alinhamento) */
+input:not(#cpf):not(#repetirSenha) {
+    margin-left: 2rem;
+}
+
+/* Estilização do Label 'Lembre de mim' */
+#lembre {
+    color: var(--cor-primaria);
+}
+
+/* Estilização do Radio Button */
+input[type="radio"] {
+    accent-color: var(--cor-primaria); /* Define a cor do ponto/preenchimento do rádio */
+}
+
+/* Estilização da Linha Divisória */
+
+/* Container para a linha decorativa de separação (usada para simular um HR customizado) */
+.linha {
+    align-items: center;
+    color: var(--cor-primaria);
+    display: flex;
+    font-weight: 900;
+    text-align: center;
+}
+
+/* Estiliza o traço/barra (before) antes do texto na linha */
+.linha::before,
+.linha::after {
+    border-bottom: 2px solid var(--cor-primaria);
+    content: ""; /* Essencial para pseudo-elementos */
+    flex: 1; /* Faz com que o traço ocupe o espaço restante */
+    position: relative;
+}
+
+/* Ajusta a margem inicial do traço da esquerda */
+.linha::before {
+    margin-inline-start: 2.2em;
+}
+
+/* Ajusta a margem final do traço da direita */
+.linha::after {
+    margin-inline-end: 2.9em;
+}
+
+/* Ajuste de Padding Específico para campos longos (primeira coluna) */
+#nome, #email, #telefone {
+    padding-right: 14.5rem; /* Garante que o input preencha o espaço corretamente */
+}
+
+/* Estilização do Botão Geral (Aplicação de Efeito 3D) */
+
+.botao {
+    background-color: var(--cor-primaria); 
+    border: none;
+    border-radius: 8px; 
+    box-shadow: 0px 8px 0px 0px var(--cor-acent); /* Sombra que simula a profundidade do botão */
+    color: var(--cor-fundo-base); 
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    outline: none;
+    transition: all 0.1s ease; /* Transição suave para o efeito de clique */
+}
+
+/* Efeito ao Pressionar (Simula o "click") */
+.botao:active {
+    box-shadow: 0px 4px 0px 0px var(--cor-acent); /* Reduz a sombra para simular que afundou */
+    transform: translateY(4px); /* Move o botão para baixo para completar o efeito */
+}
+
+/* Estilização específica para o botão Cadastrar */
+#cadastrar {
+    margin-left: 1.9rem;
+    margin-top: 1rem;
+    padding: .8rem 9rem;
+}

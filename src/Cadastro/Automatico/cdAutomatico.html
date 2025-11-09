@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cdAutomatico.css">
+    <title>Cadastro Automático - EducaRank</title>
+</head>
+<body>
+    <header>
+        <nav class="botoes">
+            <a href="../cadastro.html" id="btnVoltar">
+                <img src="../../assets/left-chevron.png" alt="Ícone de seta para esquerda" class="icon">
+                Voltar
+            </a>
+            
+            <a href="#" class="botao" id="btnEntrar">
+                Entrar
+            </a>
+        </nav>
+    </header>
+    <main>
+          <div class="form__automatico">
+            <form action="#" method="post">
+                <!-- Textos principais do form -->
+                <div>
+                    <h1 class="form__title">Seja bem-vindo(a)!</h1>
+                    <p class="form__text">Por favor, crie uma conta para continuar.</p>
+                    <p class="form__text-small">Automaticamente</p>
+                </div>
+                <!-- Input e labels do form -->
+                <div class="emLinha">  <!-- Classe criada para alinhar os inputs em linha -->
+                    <div class="labels">
+                        <label for="rm">RM</label><br>
+                        <input type="number" name="RM" id="rm" maxlength="6" required><br>
+                    </div>
+                    <div class="labels"> 
+                        <label for="cdEtec">Cod. da Etec</label><br>
+                        <input type="number" name="codigoEtec" id="cdEtec" maxlength="3"><br>
+                    </div>
+                </div>
+                <div>  <!-- Span criado para a linha vermelha  -->
+                    <span class="linha"></span>
+                </div>
+                    <input type="radio" name="lembre" id="lembre1">
+                    <label for="lembre" id="lembre">Lembre de mim</label><br>
+
+                    <button type="submit" class="botao" id="cadastrar">Cadastrar</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
