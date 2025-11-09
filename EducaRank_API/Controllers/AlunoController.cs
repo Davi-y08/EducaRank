@@ -21,5 +21,15 @@ namespace EducaRank_API.Controllers
             if (aluno == null) return NotFound();
             return Ok(aluno);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            IEnumerable<EducaRank.Domain.Models.Aluno> alunos = await _alunoService.GetAll();
+
+            if(alunos == null) return NotFound();
+
+            return Ok(alunos);
+        }
     }
 }
