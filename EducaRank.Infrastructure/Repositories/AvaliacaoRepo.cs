@@ -66,19 +66,34 @@ namespace EducaRank.Infrastructure.Repositories
             return avaliacoes;
         }
 
-        public Task<IEnumerable<Avaliacao>> GetAvaliacoesByAluno(string aluno_id)
+        public async Task<IEnumerable<Avaliacao>> GetAvaliacoesByAluno(string aluno_id)
         {
-            throw new NotImplementedException();
+            var avaliacoes = await _context.Avaliacoes.Where(x => x.AlunoId == aluno_id).ToListAsync();
+
+            if (avaliacoes.Count == 0)
+                throw new Exception("O aluno não possui nenhuma avaliação cadastrada na base de dados do EducaRank.");
+
+            return avaliacoes;
         }
 
-        public Task<IEnumerable<Avaliacao>> GetAvaliacoesByProfessor(string aluno_id)
+        public async Task<IEnumerable<Avaliacao>> GetAvaliacoesByProfessor(string professor_id)
         {
-            throw new NotImplementedException();
+            var avaliacoes = await _context.Avaliacoes.Where(x => x.ProfessorId == professor_id).ToListAsync();
+
+            if (avaliacoes.Count == 0)
+                throw new Exception("O professor não possui nenhuma avaliação cadastrada na base de dados do EducaRank.");
+
+            return avaliacoes;
         }
 
-        public Task<Avaliacao> GetById(string id)
+        public async Task<Avaliacao> GetById(string id)
         {
-            throw new NotImplementedException();
+            var avaliacao = await _context.Avaliacoes.FindAsync(id);
+
+            if (avaliacao == null)
+                throw new KeyNotFoundException("Avaliação não encontrada");
+
+            return avaliacao;
         }
     }
 }
