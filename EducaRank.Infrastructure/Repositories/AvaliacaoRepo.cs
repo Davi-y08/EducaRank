@@ -15,7 +15,7 @@ namespace EducaRank.Infrastructure.Repositories
         }
 
 
-        public async Task<Avaliacao> CreateAvaliacao(string aluno_id, string professor_id, string comentario, int nova_pontuacao)
+        public async Task<Avaliacao> CreateAvaliacao(string aluno_id, string professor_id, string comentario, int nova_pontuacao)   
         {
             var aluno = await _context.Alunos.FindAsync(aluno_id);
             var professor = await _context.Professores.FindAsync(professor_id);

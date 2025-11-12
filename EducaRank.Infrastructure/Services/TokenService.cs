@@ -22,7 +22,7 @@ namespace EducaRank.Infrastructure.Services
 
             var clains = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, aluno.Id),
+                new Claim(ClaimTypes.NameIdentifier, aluno.Id),
                 new Claim("rm", aluno.Rm.ToString()),
                 new Claim("nome", aluno.Nome),
                 new Claim(ClaimTypes.Role, "Aluno")
@@ -53,7 +53,7 @@ namespace EducaRank.Infrastructure.Services
 
             var clains = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, professor.Id),
+                new Claim(ClaimTypes.NameIdentifier, professor.Id),
                 new Claim("rm", professor.Rm.ToString()),
                 new Claim("nome", professor.Nome),
                 new Claim(ClaimTypes.Role, "Professor")

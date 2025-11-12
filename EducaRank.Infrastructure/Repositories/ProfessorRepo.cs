@@ -92,18 +92,6 @@ namespace EducaRank.Infrastructure.Repositories
             return professor;
         }
 
-        public async Task<int> GetNrAvaliacoes(string professorId)
-        {
-            int avaliacoes = await _appDbContext.Professores.Where(x => x.Id == professorId)
-                .Select(x => x.AvaliacoesFeitas)
-                .FirstOrDefaultAsync();
-
-            if (avaliacoes == 0)
-                throw new KeyNotFoundException("Professor não encontrado ou nenhuma avaliação feita");
-
-            return avaliacoes;
-        }
-
         public async Task<IEnumerable<Professor>> Search(string query)
         {
             query = query.Trim();

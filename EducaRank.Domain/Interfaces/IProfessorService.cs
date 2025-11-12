@@ -6,8 +6,6 @@ namespace EducaRank.Domain.Interfaces
     {
         Task<IEnumerable<Professor>> GetAll();
         Task<Professor> GetById(string professorId);
-        Task<int> GetNrAvaliacoes(string professorId);
-        Task<int> CreateAvaliacao(string aluno_id, int pontuacao);
         Task<Professor> Create(int rm, string senha, string cpf);
         Task<Professor> Update(Professor professorModel, string professorId);
         Task<IEnumerable<Professor>> Search(string query);
