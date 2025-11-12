@@ -59,7 +59,7 @@ namespace EducaRank_API.Controllers
                 if (nova_avaliacao == null)
                     return BadRequest(new { message = "Não foi possível criar a avaliação." });
 
-                var read_avaliacao = nova_avaliacao
+                var read_avaliacao = nova_avaliacao.ToReadAvaliacao();
 
                 return CreatedAtAction(
                     actionName: nameof(AvaliacaoController.GetById),
@@ -68,9 +68,38 @@ namespace EducaRank_API.Controllers
                     value: new
                     {
                         sucess = true,
-                        data = 
+                        data = read_avaliacao,
+                        message = "Avaliação criada com sucesso"
                     }
                 );
+            }
+
+            catch(InvalidOperationException ex)
+            {
+                return Conflict(new
+                {
+                    sucess = false,
+                    message = ex.Message,
+                });
+            }
+
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Erro interno no servidor.",
+                    detalhe = ex.Message
+                });
             }
         }
     }
