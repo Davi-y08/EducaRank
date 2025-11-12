@@ -63,6 +63,7 @@ namespace EducaRank.Infrastructure.Repositories
             return novo_professor;
         }
 
+
         public async Task<bool> Delete(string professorId)
         {
             var professor = await _appDbContext.Professores.FindAsync(professorId);

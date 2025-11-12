@@ -67,5 +67,13 @@ namespace EducaRank.Domain.Models
             Foto = caminho_foto;
         }
 
+        public void AlterarPontuacao(int new_pontuation)
+        {
+            if (string.IsNullOrWhiteSpace(new_pontuation.ToString()))
+                throw new DomainException("Pontuação inválida");
+
+            Pontuacao += new_pontuation;
+        }
+
     }
 }
