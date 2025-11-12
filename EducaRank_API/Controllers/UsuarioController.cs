@@ -37,22 +37,32 @@ namespace EducaRank_API.Controllers
                 return BadRequest(ModelState);
 
             var aux_aluno = await _context.Alunos.FirstOrDefaultAsync(x => x.Rm == dto.Rm);
-            var credencial_aluno = await _context.AlunosCredenciais.FirstOrDefaultAsync(x => x.AlunoId == aux_aluno!.Id);
 
-            if (aux_aluno != null && credencial_aluno!.VerificarSenha(dto.Senha))
+            if (aux_aluno != null)
             {
-                var jwt = _tokenService.GenerateTokenAluno(aux_aluno);
-                return Ok(new { jwt });
+                var credencial_aluno = await _context.AlunosCredenciais.FirstOrDefaultAsync(x => x.AlunoId == aux_aluno!.Id);
+
+                if (aux_aluno != null && credencial_aluno!.VerificarSenha(dto.Senha))
+                {
+                    var jwt = _tokenService.GenerateTokenAluno(aux_aluno);
+                    return Ok(new { jwt });
+                }
             }
+
 
             var aux_professor = await _context.Professores.FirstOrDefaultAsync(x => x.Rm == dto.Rm);
-            var credecial_professor = await _context.ProfessoresCredenciais.FirstOrDefaultAsync(x => x.ProfessorId == aux_professor!.Id);
 
-            if (aux_professor != null && credecial_professor!.VerificarSenha(dto.Senha))
+            if(aux_professor != null)
             {
-                var jwt = _tokenService.GenerateTokenProfessor(aux_professor);
-                return Ok(new { jwt });
+                var credecial_professor = await _context.ProfessoresCredenciais.FirstOrDefaultAsync(x => x.ProfessorId == aux_professor!.Id);
+
+                if (aux_professor != null && credecial_professor!.VerificarSenha(dto.Senha))
+                {
+                    var jwt = _tokenService.GenerateTokenProfessor(aux_professor);
+                    return Ok(new { jwt });
+                }
             }
+
 
             return Unauthorized("Login não autorizado");
         }

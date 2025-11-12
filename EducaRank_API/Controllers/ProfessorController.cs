@@ -43,21 +43,28 @@ namespace EducaRank_API.Controllers
             return Ok(dtos);
         }
 
-        [Authorize(Policy = "Professor")]
+        [Authorize(Policy = "ProfessorOnly")]
         [HttpPost("createavaliacao")]
         public async Task<IActionResult> CreateAvaliacao([FromBody] CreateAvaliacaoDto dto)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             try
             {
                 string? professor_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
                 if  (string.IsNullOrEmpty(professor_id))
-                    return Unauthorized("Professor não encontrado");
+                    return Unauthorized(new
+                    {
+                        success = false,
+                        message = "Professor não encontrado"
+                    });
 
                 var nova_avaliacao = await _avaliacoesService.CreateAvaliacao(dto.AlunoId, professor_id, dto.Comentário, dto.Pontuacao);
 
                 if (nova_avaliacao == null)
-                    return BadRequest(new { message = "Não foi possível criar a avaliação." });
+                    return BadRequest(new { message = "Não foi possível criar a avaliação.", success = false });
 
                 var read_avaliacao = nova_avaliacao.ToReadAvaliacao();
 
@@ -67,7 +74,7 @@ namespace EducaRank_API.Controllers
                     routeValues: new { id = nova_avaliacao.Id },
                     value: new
                     {
-                        sucess = true,
+                        success = true,
                         data = read_avaliacao,
                         message = "Avaliação criada com sucesso"
                     }
@@ -78,7 +85,7 @@ namespace EducaRank_API.Controllers
             {
                 return Conflict(new
                 {
-                    sucess = false,
+                    success = false,
                     message = ex.Message,
                 });
             }

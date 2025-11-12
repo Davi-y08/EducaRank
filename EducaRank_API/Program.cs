@@ -131,9 +131,38 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
+
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/json";
+
+        var error = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+        if (error != null)
+        {
+            var ex = error.Error;
+
+            var result = System.Text.Json.JsonSerializer.Serialize(new
+            {
+                success = false,
+                message = "Ocorreu um erro no servidor.",
+                detalhe = ex is InvalidOperationException ? ex.Message : null
+            });
+
+            await context.Response.WriteAsync(result);
+        }
+    });
+});
 
 app.MapControllers();
 
