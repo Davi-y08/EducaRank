@@ -17,8 +17,8 @@ namespace EducaRank.Infrastructure.Repositories
 
         public async Task<Avaliacao> CreateAvaliacao(string aluno_id, string professor_id, string comentario, int nova_pontuacao)
         {
-            var aluno = await _context.Alunos.FirstOrDefaultAsync(x => x.Id == aluno_id);
-            var professor = await _context.Professores.FirstOrDefaultAsync(x => x.Id == professor_id);
+            var aluno = await _context.Alunos.FindAsync(aluno_id);
+            var professor = await _context.Professores.FindAsync(professor_id);
 
             if (aluno == null || professor == null)
                 throw new KeyNotFoundException("Aluno ou professor não encontrado na base de dados do EducaRank.");
@@ -32,20 +32,38 @@ namespace EducaRank.Infrastructure.Repositories
                 comentario: comentario
             );
 
-            _context.Add(nova_avaliacao);
+            _context.Update(aluno);
+            _context.Avaliacoes.Add(nova_avaliacao);
             await _context.SaveChangesAsync();
 
             return nova_avaliacao;
         }
 
-        public Task<bool> DeleteAvaliacao(string avaliacao_id)
+        public async Task<bool> DeleteAvaliacao(string avaliacao_id)
         {
-            throw new NotImplementedException();
+            var avaliacao = await _context.Avaliacoes.FindAsync(avaliacao_id);
+
+            if (avaliacao == null)
+                throw new KeyNotFoundException("avaliacao não encontrada");
+
+            var aluno = await _context.Alunos.FindAsync(avaliacao.AlunoId);
+
+            if (aluno == null)
+                throw new KeyNotFoundException("Aluno não encontrado na base de dados do EducaRank.");
+
+            aluno.AlterarPontuacao(avaliacao.PontuacaoAlterada * -1);
+
+            _context.Update(aluno);
+            _context.Avaliacoes.Remove(avaliacao);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
-        public Task<IEnumerable<Avaliacao>> GetAll()
+        public async Task<IEnumerable<Avaliacao>> GetAll()
         {
-            throw new NotImplementedException();
+            var avaliacoes = await _context.Avaliacoes.ToListAsync();
+            return avaliacoes;
         }
 
         public Task<IEnumerable<Avaliacao>> GetAvaliacoesByAluno(string aluno_id)
