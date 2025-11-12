@@ -132,15 +132,15 @@ namespace EducaRank_API.Controllers
                     message = ex.Message
                 });
             }
-            //catch (Exception ex)
-            //{
-            //    return StatusCode(500, new
-            //    {
-            //        success = false,
-            //        message = "Erro interno no servidor.",
-            //        detalhe = ex.Message
-            //    });
-            //}
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Erro interno no servidor.",
+                    detalhe = ex.Message
+                });
+            }
         }
     }
 }
