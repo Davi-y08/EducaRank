@@ -5,6 +5,7 @@ using EducaRank.Domain.Interfaces;
 using EducaRank.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using System.Security.Claims;
 
 
@@ -108,6 +109,26 @@ namespace EducaRank_API.Controllers
                     detalhe = ex.Message
                 });
             }
+        }
+
+        [Authorize(Policy = "ProfessorOnly")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            string? professor_id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (professor_id == null)
+                return Unauthorized("Requisição não autorizada");
+
+            if(professor_id != id.ToString())
+                return Unauthorized("Identificadores não coincidem");
+
+            var resposta = await _professorService.Delete(id.ToString());
+
+            if (resposta == false)
+                return NotFound("Não foi possivel deletar");
+
+            return NoContent();
         }
     }
 }
