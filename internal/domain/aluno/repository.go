@@ -10,5 +10,6 @@ type AlunoRepository interface {
 	Update(ctx context.Context, aluno *Aluno) error 
 	DeleteByID(ctx context.Context, id string) error
 	PontuacaoComFiltros(ctx context.Context, filtros Filtros) ([]*Aluno, int, error)
+	GetByRm(ctx context.Context, rm int) (*Aluno, error)
 	SearchAlunos(ctx context.Context, query string, page int, pageSize int) ([]*Aluno, int, error)
 }

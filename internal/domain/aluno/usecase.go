@@ -11,6 +11,7 @@ type AlunoUseCase interface {
 	Create(ctx context.Context, rm int, senha string, cpf string) (*Aluno, error)
 	DeleteAlunoFromEducaRank(ctx context.Context, id string) error
 	SearchAlunos(ctx context.Context, query string, page int, pageSize int) ([]*Aluno, int, error)
+	GetByRm(ctx context.Context, rm int) (*Aluno, error)
 }
 
 type Filtros struct{
