@@ -1,4 +1,4 @@
-package models
+package aluno
 
 type AlunoCredencial struct {
 	AlunoID string `json:"aluno_id"`

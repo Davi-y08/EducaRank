@@ -1,4 +1,4 @@
-package models
+package aluno
 
 type Aluno struct {
 	ID string `json:"id"`

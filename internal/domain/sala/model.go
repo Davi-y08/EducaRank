@@ -1,4 +1,4 @@
-package models
+package sala
 
 type Sala struct {
     ID        int    `json:"id"`

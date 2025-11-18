@@ -1,4 +1,4 @@
-package models
+package professor
 
 type ProfessorCredencial struct {
     ProfessorID string `json:"professor_id"`
