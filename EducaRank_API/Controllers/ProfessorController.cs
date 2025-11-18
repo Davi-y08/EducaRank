@@ -120,8 +120,8 @@ namespace EducaRank_API.Controllers
             if (professor_id == null)
                 return Unauthorized("Requisição não autorizada");
 
-            if(professor_id != id.ToString())
-                return Unauthorized("Identificadores não coincidem");
+            if (professor_id != id.ToString())
+                return Forbid();
 
             var resposta = await _professorService.Delete(id.ToString());
 
@@ -129,6 +129,19 @@ namespace EducaRank_API.Controllers
                 return NotFound("Não foi possivel deletar");
 
             return NoContent();
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search([FromQuery] string query)
+        {
+            var professores = await _professorService.Search(query);
+
+            if (professores == null)
+                return NotFound("Nenhum professor encontrado");
+
+            var dto = professores.Select(a => a.ToReadProfessor());
+
+            return Ok(dto);
         }
     }
 }
